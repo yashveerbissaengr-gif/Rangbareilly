@@ -1,5 +1,5 @@
 import { HeroBanner } from "@/components/home/HeroBanner";
-import { CategoryBubbles } from "@/components/home/CategoryBubbles";
+import { GenZPromoBanner } from "@/components/ui/GenZPromoBanner";
 import { ProductSection } from "@/components/home/ProductSection";
 import { PromoBanner } from "@/components/home/PromoBanner";
 import { ReviewsSection } from "@/components/home/ReviewsSection";
@@ -7,39 +7,38 @@ import { Footer } from "@/components/layout/Footer";
 import { getProducts, getCollection } from "@/lib/shopify";
 
 export default async function Home() {
-  // Fetch some products for different sections
-  // Ideally, you'd fetch from specific collections by handle
   const allProducts = await getProducts();
-  const viralProducts = await getCollection('bracelets');
-  const hotSelling = allProducts.filter(p => p.isBestSeller).slice(0, 4);
-  const newArrivals = allProducts.slice(0, 4);
+  
+  const under299 = allProducts.filter(p => p.price <= 299).slice(0, 4);
+  const under399 = allProducts.filter(p => p.price > 299 && p.price <= 399).slice(0, 4);
+  const under499 = allProducts.filter(p => p.price > 399 && p.price <= 499).slice(0, 4);
 
   return (
     <>
       <HeroBanner />
-      <CategoryBubbles />
+      <GenZPromoBanner />
       
-      {/* INSTAGRAM VIRAL FINDS */}
+      {/* UNDER 299 */}
       <ProductSection 
-        title="Instagram Viral Finds" 
-        products={viralProducts.length > 0 ? viralProducts.slice(0, 4) : allProducts.slice(0, 4)} 
-        viewAllLink="/collections/viral" 
+        title="UNDER 299" 
+        products={under299.length > 0 ? under299 : allProducts.slice(0, 4)} 
+        viewAllLink="/under-299" 
       />
 
       <PromoBanner />
 
-      {/* NEW ARRIVALS */}
+      {/* UNDER 399 */}
       <ProductSection 
-        title="New Arrivals" 
-        products={newArrivals.length > 0 ? newArrivals : allProducts.slice(0, 4)} 
-        viewAllLink="/collections/new" 
+        title="UNDER 399" 
+        products={under399.length > 0 ? under399 : allProducts.slice(0, 4)} 
+        viewAllLink="/under-399" 
       />
 
-      {/* HOT SELLING */}
+      {/* UNDER 499 */}
       <ProductSection 
-        title="Hot Selling" 
-        products={hotSelling.length > 0 ? hotSelling : allProducts.slice(0, 4)} 
-        viewAllLink="/collections/hot-selling" 
+        title="UNDER 499" 
+        products={under499.length > 0 ? under499 : allProducts.slice(0, 4)} 
+        viewAllLink="/under-499" 
       />
 
       <ReviewsSection />

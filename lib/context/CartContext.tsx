@@ -39,7 +39,7 @@ function mapShopifyCart(shopifyCart: any): CartItem[] {
       care: "",
       shipping: "",
       returns: "",
-      price: parseFloat(node.cost.totalAmount.amount) / node.quantity, 
+      price: node.quantity > 0 ? parseFloat(node.cost.totalAmount.amount) / node.quantity : parseFloat(variant.product.priceRange?.minVariantPrice?.amount || "0"), 
       collection: "",
       images: product.featuredImage ? [{ url: product.featuredImage.url, alt: product.featuredImage.altText || product.title, isPrimary: true }] : [],
       variants: [],
@@ -62,7 +62,7 @@ function mapShopifyCart(shopifyCart: any): CartItem[] {
       selectedVariant: frontendVariant,
       quantity: node.quantity
     };
-  });
+  }).filter((item: CartItem) => item.quantity > 0);
 }
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {

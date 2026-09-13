@@ -14,7 +14,7 @@ const faqs = [
   { question: "How can I track my order?", answer: "Once your order is shipped, you will receive an email with the tracking link. You can also track it from the 'Track Order' section in the menu." },
   { question: "Do you offer refunds or exchanges?", answer: "Yes, we offer a 7-day return and exchange policy for unworn items in their original packaging." },
   { question: "Is COD (Cash on Delivery) available?", answer: "Yes, we offer Cash on Delivery across most pin codes in India." },
-  { question: "How long does shipping take?", answer: "Standard shipping usually takes 3-5 business days." }
+  { question: "How long does shipping take?", answer: "Standard shipping usually takes 7-10 business days." }
 ];
 
 export const ReviewsSection = () => {

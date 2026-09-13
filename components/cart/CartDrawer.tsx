@@ -41,13 +41,107 @@ export const CartDrawer = () => {
               </button>
             </div>
 
-            {/* Free Shipping Indicator */}
-            <div className="p-4 bg-[#FFEAEA]">
-              <p className="text-sm text-center text-[#8B263E] font-medium">
-                {cartTotal >= 599 
-                  ? "🎉 You have unlocked Free Shipping!" 
-                  : `Add ₹${599 - cartTotal} more to unlock Free Shipping.`}
-              </p>
+            {/* Gamified Rewards Indicator */}
+            <div className="pt-6 pb-8 px-4 bg-[#FAFAFA] border-b border-gray-100 relative overflow-hidden">
+              {(() => {
+                const tiers = [
+                  { id: 1, amount: 600, label: "Free Shipping\non ₹600!", reward: "Free Shipping" },
+                  { id: 2, amount: 699, label: "Free Gift\non ₹699!", reward: "Free Gift" },
+                  { id: 3, amount: 1199, label: "Premium Gift\n₹1199!", reward: "Premium Gift" },
+                ];
+                
+                let progressPercentage = 0;
+                if (cartTotal < 600) {
+                  progressPercentage = (cartTotal / 600) * 33.33;
+                } else if (cartTotal >= 600 && cartTotal < 699) {
+                  progressPercentage = 33.33 + ((cartTotal - 600) / (699 - 600)) * 33.33;
+                } else if (cartTotal >= 699 && cartTotal < 1199) {
+                  progressPercentage = 66.66 + ((cartTotal - 699) / (1199 - 699)) * 33.33;
+                } else {
+                  progressPercentage = 100;
+                }
+
+                const nextTier = tiers.find(t => cartTotal < t.amount);
+                
+                return (
+                  <div className="flex flex-col items-center w-full max-w-md mx-auto">
+                    {/* Top Text */}
+                    <div className="text-center font-medium text-[#2C3E50] text-[15px] mb-8">
+                      {nextTier ? (
+                        <>Add <span className="font-extrabold">₹{nextTier.amount - cartTotal}</span> more to get <span className="font-extrabold">{nextTier.reward}</span> on this order</>
+                      ) : (
+                        <span className="text-[#E63956] font-extrabold">🎉 You have unlocked all rewards!</span>
+                      )}
+                    </div>
+                    
+                    {/* Progress Bar Container */}
+                    <div className="relative w-full px-6">
+                      {/* Background Track */}
+                      <div className="absolute top-1/2 left-6 right-6 h-3 bg-[#D6DAD3] -translate-y-1/2 rounded-full" />
+                      
+                      {/* Filled Track */}
+                      <motion.div 
+                        className="absolute top-1/2 left-6 h-3 bg-[#FF8A9B] -translate-y-1/2 rounded-full z-10"
+                        initial={{ width: 0 }}
+                        animate={{ width: `calc(${progressPercentage}% - 3rem)` }}
+                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                      />
+                      
+                      {/* Timeline Markers */}
+                      <div className="relative z-20 flex justify-between w-full">
+                        {tiers.map((tier, index) => {
+                          const isReached = cartTotal >= tier.amount;
+                          return (
+                            <div key={tier.id} className="flex flex-col items-center w-1/3 relative">
+                              {/* Circle Marker */}
+                              <motion.div 
+                                className="w-10 h-10 rounded-full flex items-center justify-center shadow-sm z-20 bg-[#D6DAD3] text-[#2C3E50]"
+                                animate={isReached ? { scale: [1, 1.15, 1] } : {}}
+                                transition={{ duration: 0.4 }}
+                              >
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                                    {index === 0 && (
+                                      <path d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11M14 9h4l4 4v4c0 .6-.4 1-1 1h-2M6 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+                                    )}
+                                    {index === 1 && (
+                                      <polyline points="20 12 20 22 4 22 4 12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                                    )}
+                                    {index === 2 && (
+                                      <path d="M12 2l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z" />
+                                    )}
+                                  </svg>
+                              </motion.div>
+                              
+                              {/* Label */}
+                              <div className="absolute top-14 text-center w-full">
+                                <span className="text-[13px] font-medium text-[#2C3E50] whitespace-pre-line leading-relaxed">
+                                  {tier.label}
+                                </span>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                    {/* Spacer for labels */}
+                    <div className="h-16"></div>
+                  </div>
+                );
+              })()}
+            </div>
+            
+            {/* Gen Z Promo Banner */}
+            <div className="w-full bg-[#1A0F11] text-[#FF4D4D] py-2 overflow-hidden border-y-2 border-[#E63956]">
+              <div className="whitespace-nowrap animate-marquee flex items-center space-x-8 font-black text-xs uppercase tracking-widest">
+                {[...Array(4)].map((_, i) => (
+                  <span key={i} className="flex items-center drop-shadow-[0_0_10px_rgba(255,77,77,0.4)]">
+                    <span className="text-lg mr-2">🔥</span>
+                    ANY 3 FOR ₹699
+                    <span className="text-lg ml-2 text-white">✨</span>
+                    <span className="text-white ml-6">GRAB RN</span>
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* Cart Items */}

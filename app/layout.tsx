@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Caveat } from "next/font/google";
+import { Outfit, Caveat } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/context/CartContext";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { TopBar } from "@/components/layout/TopBar";
 import { Header } from "@/components/layout/Header";
 import { MobileFooterNav } from "@/components/layout/MobileFooterNav";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { LazyMotion, domAnimation } from "framer-motion";
 
-const inter = Inter({
-  variable: "--font-inter",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -30,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${caveat.variable} antialiased min-h-screen flex flex-col bg-rangbareilly-background`}>
+      <body className={`${outfit.variable} ${caveat.variable} antialiased min-h-screen flex flex-col bg-rangbareilly-background`}>
         <LazyMotion features={domAnimation}>
           <CartProvider>
             <TopBar />
@@ -38,6 +39,7 @@ export default function RootLayout({
             <main className="flex-grow">{children}</main>
             <MobileFooterNav />
             <CartDrawer />
+            <WhatsAppButton />
           </CartProvider>
         </LazyMotion>
       </body>
