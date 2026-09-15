@@ -89,12 +89,9 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-[rgba(230,57,86,0.12)] bg-gradient-to-r from-[#E63956]/8 to-transparent">
-              <div className="flex items-center gap-1.5">
-                <span className="text-[#E63956] text-base">✦</span>
-                <span className="font-bold text-[#1F1215] tracking-wide text-base font-[var(--font-outfit)]">
-                  Rang Bareilly
-                </span>
-              </div>
+              <span className="font-bold text-[#1F1215] tracking-wide text-base font-[var(--font-outfit)]">
+                Rangbareilly
+              </span>
               <button
                 onClick={onClose}
                 aria-label="Close menu"
