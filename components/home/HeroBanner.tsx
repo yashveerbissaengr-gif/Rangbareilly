@@ -1,35 +1,93 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { GenZPromoBanner } from "@/components/ui/GenZPromoBanner";
+
+const banners = [
+  {
+    src: "/banner-2.png",
+    alt: "Under ₹199 and ₹299 Collection",
+    showButton: false
+  },
+  {
+    src: "/banner-3.png",
+    alt: "A Little Surprise Just For You",
+    showButton: false
+  },
+  {
+    src: "/banner-1.png",
+    alt: "Premium Gift for You",
+    showButton: true,
+    buttonLeft: "25%",
+    buttonBottom: "18%"
+  }
+];
 
 export const HeroBanner = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % banners.length);
+    }, 3000); // 3 second pause time
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="relative w-full h-[60vh] md:h-[80vh] bg-[#F9EBEA] overflow-hidden">
-      {/* Background Image */}
-      <Image
-        src="/hero.jpg"
-        alt="Hero Banner"
-        fill
-        className="object-cover object-center"
-        priority
-      />
-      
-      {/* Overlay Content */}
-      <div 
-        className="absolute inset-0 flex flex-col items-center justify-center text-center p-6"
-        style={{ background: "radial-gradient(circle, rgba(249,235,234,0.4) 0%, rgba(249,235,234,0.85) 100%)" }}
-      >
-        <h1 className="font-sans font-extrabold tracking-tight text-5xl md:text-7xl lg:text-8xl text-[#1F1215] drop-shadow-sm mb-4 max-w-4xl">
-          Main Character Energy ✨
-        </h1>
-        <p className="font-sans text-base md:text-lg text-[#7D6B6E] max-w-xl mx-auto font-medium mb-10">
-          High-shine, anti-tarnish pieces made for daily drip.
-        </p>
-        <button className="bg-gradient-to-br from-[#E63956] to-[#FF4D4D] text-white px-10 py-4 rounded-full font-extrabold uppercase tracking-wide text-sm transition-all shadow-[0_10px_25px_rgba(230,57,86,0.4)] hover:shadow-[0_15px_35px_rgba(230,57,86,0.6)] hover:-translate-y-1">
-          Shop The Drop
-        </button>
+    <div className="w-full flex flex-col bg-[#F5F0EB]">
+      <Link href="/products" className="relative w-full block group cursor-pointer overflow-hidden">
+        <div 
+          className="flex transition-transform duration-700 ease-in-out w-full"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {banners.map((banner, index) => (
+            <div key={index} className="w-full shrink-0 relative bg-[#F5F0EB]">
+              <Image
+                src={banner.src}
+                alt={banner.alt}
+                width={1920}
+                height={1080}
+                className="w-full h-auto object-contain"
+                priority={index === 0}
+                unoptimized
+              />
+              {banner.showButton && (
+                <div 
+                  className="absolute -translate-x-1/2 translate-y-1/2 z-20 w-max"
+                  style={{ left: banner.buttonLeft, bottom: banner.buttonBottom }}
+                >
+                  <span className="text-gray-900 font-outfit font-black text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-xl tracking-widest uppercase transition-transform group-hover:scale-105 inline-block">
+                    Shop All Products
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        {/* Navigation dots */}
+        <div className="absolute bottom-[4%] left-1/2 -translate-x-1/2 z-30 flex gap-2">
+          {banners.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.preventDefault();
+                setCurrentSlide(index);
+              }}
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                index === currentSlide ? "bg-black" : "bg-black/30"
+              }`}
+            />
+          ))}
+        </div>
+      </Link>
+
+      <div className="w-full">
+        <GenZPromoBanner />
       </div>
     </div>
   );
 };
+

@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Caveat } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/context/CartContext";
-import { CartDrawer } from "@/components/cart/CartDrawer";
-import { TopBar } from "@/components/layout/TopBar";
-import { Header } from "@/components/layout/Header";
-import { MobileFooterNav } from "@/components/layout/MobileFooterNav";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { SiteShell } from "@/components/layout/SiteShell";
 import { LazyMotion, domAnimation } from "framer-motion";
 
 const outfit = Outfit({
@@ -34,12 +30,8 @@ export default function RootLayout({
       <body className={`${outfit.variable} ${caveat.variable} antialiased min-h-screen flex flex-col bg-rangbareilly-background`}>
         <LazyMotion features={domAnimation}>
           <CartProvider>
-            <TopBar />
-            <Header />
+            <SiteShell />
             <main className="flex-grow">{children}</main>
-            <MobileFooterNav />
-            <CartDrawer />
-            <WhatsAppButton />
           </CartProvider>
         </LazyMotion>
       </body>
