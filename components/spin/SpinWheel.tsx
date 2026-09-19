@@ -32,7 +32,7 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
 
   const [isSpinning, setIsSpinning] = useState(false);
   const [hasSpun, setHasSpun] = useState(false);
-  const [currentRotation, setCurrentRotation] = useState(0);
+  const currentRotation = useRef(0);
   const [result, setResult] = useState<SpinResult | null>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -100,7 +100,7 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
     // 2. Calculate exact rotation needed
     const targetRotation = calculateTargetRotation(
       spinResult.segment,
-      currentRotation
+      currentRotation.current
     );
 
     // 3. Apply CSS transform transition to wheel canvas
@@ -112,7 +112,7 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
 
     // 4. After animation completes, show result
     const timer = setTimeout(() => {
-      setCurrentRotation(targetRotation);
+      currentRotation.current = targetRotation;
       setResult(spinResult);
       setIsSpinning(false);
       setHasSpun(true);
@@ -122,7 +122,7 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
     }, SPIN_DURATION_MS + 100);
 
     return () => clearTimeout(timer);
-  }, [isSpinning, hasSpun, orderNumber, currentRotation]);
+  }, [isSpinning, hasSpun, orderNumber]);
 
   return (
     <div className="flex flex-col items-center gap-6">
@@ -152,7 +152,6 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
           height={CANVAS_SIZE}
           className="absolute inset-0 rounded-full"
           style={{
-            willChange: "transform",
             transformOrigin: "center center",
           }}
           aria-label="Spin wheel"
@@ -198,7 +197,7 @@ export function SpinWheel({ orderNumber }: SpinWheelProps) {
         disabled={isSpinning || hasSpun}
         className={[
           "relative px-14 py-5 text-sm font-sans font-bold tracking-widest uppercase",
-          "rounded-full transition-all duration-300",
+          "rounded-full transition duration-300",
           "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#E63956]",
           isSpinning || hasSpun
             ? "bg-[#7D6B6E] text-white cursor-not-allowed opacity-60"

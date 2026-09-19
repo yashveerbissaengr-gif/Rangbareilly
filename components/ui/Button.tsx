@@ -26,12 +26,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const isLoud = theme === "loud";
 
     const variants = {
-      solid: isLoud ? "bg-glint-ivory text-glint-charcoal hover:bg-[#C9A227] hover:text-white" : "bg-glint-charcoal text-glint-ivory hover:bg-glint-gold",
+      solid: isLoud ? "bg-rangbareilly-background text-rangbareilly-dark hover:bg-[#C9A227] hover:text-white" : "bg-rangbareilly-dark text-rangbareilly-background hover:bg-rangbareilly-primary",
       outline: isLoud
-        ? "border border-glint-ivory text-glint-ivory hover:bg-glint-ivory hover:text-glint-charcoal"
-        : "border border-glint-charcoal text-glint-charcoal hover:bg-glint-charcoal hover:text-glint-ivory",
-      ghost: isLoud ? "text-glint-ivory hover:text-[#C9A227]" : "text-glint-charcoal hover:text-glint-gold",
-      link: isLoud ? "text-glint-ivory underline underline-offset-4 hover:text-[#C9A227] decoration-1" : "text-glint-charcoal underline underline-offset-4 hover:text-glint-gold decoration-1",
+        ? "border border-rangbareilly-background text-rangbareilly-background hover:bg-rangbareilly-background hover:text-rangbareilly-dark"
+        : "border border-rangbareilly-dark text-rangbareilly-dark hover:bg-rangbareilly-dark hover:text-rangbareilly-background",
+      ghost: isLoud ? "text-rangbareilly-background hover:text-[#C9A227]" : "text-rangbareilly-dark hover:text-rangbareilly-primary",
+      link: isLoud ? "text-rangbareilly-background underline underline-offset-4 hover:text-[#C9A227] decoration-1" : "text-rangbareilly-dark underline underline-offset-4 hover:text-rangbareilly-primary decoration-1",
     };
 
     return (

@@ -3,14 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 const categories = [
   { name: "Earrings",       href: "/category/earrings",        image: "/category/earrings.png" },
   { name: "Rings",          href: "/category/rings",           image: "/category/rings.jpg" },
-  { name: "Necklace",       href: "/category/necklace",        image: "/category/necklace.png" },
+  { name: "Necklace",       href: "/category/necklace",        image: "/category/necklace.jpg" },
   { name: "Bracelets",      href: "/category/bracelets",       image: "/category/bracelets.jpg" },
-  { name: "Bag Charms",     href: "/category/bag-charms",      image: "/category/bag-charms.jpg" },
+  { name: "Bag Charms",     href: "/category/bag-charms",      image: "/category/bag-charms1.png" },
   { name: "Stainless Steel",href: "/category/stainless-steel", image: "/category/stainless-steel.jpg" },
   { name: "Arm Cuffs",      href: "/category/arm-cuffs",       image: "/category/arm-cuffs.png" },
 ];
@@ -29,16 +29,16 @@ export const CategoryBubbles = () => {
 
         {/* Scrollable Bubbles */}
         <div className="flex gap-5 md:gap-8 overflow-x-auto pb-3 scrollbar-hide snap-x justify-start md:justify-center">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <Link
               href={category.href}
-              key={index}
+              key={category.name}
               className="flex flex-col items-center gap-2.5 shrink-0 snap-center group"
             >
               <motion.div
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-[rgba(230,57,86,0.15)] group-hover:border-[#E63956] group-hover:shadow-[0_4px_20px_rgba(230,57,86,0.2)] transition-all duration-200 overflow-hidden relative"
+                className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-[rgba(230,57,86,0.15)] group-hover:border-[#E63956] group-hover:shadow-[0_4px_20px_rgba(230,57,86,0.2)] transition duration-200 overflow-hidden relative"
               >
                 <Image 
                   src={category.image} 

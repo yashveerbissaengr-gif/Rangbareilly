@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { shopifyFetch } from '@/lib/shopify/client';
 import { getCustomerQuery } from '@/lib/shopify/mutations';
 import { cookies } from 'next/headers';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('customerToken')?.value;
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ customer: null }, { status: 401 });
     }
 
-    const res = await shopifyFetch<any>({
+    const res = await shopifyFetch<unknown>({
       query: getCustomerQuery,
       variables: { customerAccessToken: token },
       cache: 'no-store',

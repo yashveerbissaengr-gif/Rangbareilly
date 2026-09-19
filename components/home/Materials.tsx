@@ -10,8 +10,8 @@ import { cn } from "@/lib/utils";
 export function Materials({ theme = "core" }: { theme?: "core" | "loud" }) {
   const isLoud = theme === "loud";
   const bgClass = isLoud ? "bg-[#1A1715]" : "bg-[#F5F2EA]";
-  const textClass = isLoud ? "text-glint-ivory" : "text-glint-charcoal";
-  const mutedTextClass = isLoud ? "text-glint-ivory/80" : "text-glint-charcoal/80";
+  const textClass = isLoud ? "text-rangbareilly-background" : "text-rangbareilly-dark";
+  const mutedTextClass = isLoud ? "text-rangbareilly-background/80" : "text-rangbareilly-dark/80";
 
   return (
     <section className={cn("py-24 px-6 md:px-12 lg:px-24", bgClass)}>

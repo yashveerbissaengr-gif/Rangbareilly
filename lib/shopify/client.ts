@@ -1,5 +1,5 @@
 const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
-const publicToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const publicToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY;
 const privateToken = process.env.SHOPIFY_PRIVATE_STOREFRONT_TOKEN;
 const version = process.env.SHOPIFY_STOREFRONT_API_VERSION || '2024-01';
 
@@ -47,6 +47,10 @@ export async function shopifyFetch<T>({
       cache,
       ...(tags && { next: { tags } }),
     });
+
+    if (!result.ok) {
+      throw new Error(`Shopify API error: ${result.status}`);
+    }
 
     const body = await result.json();
 

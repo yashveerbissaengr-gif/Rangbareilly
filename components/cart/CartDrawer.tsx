@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { X, Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useCart } from "@/lib/context/CartContext";
@@ -14,16 +14,17 @@ export const CartDrawer = () => {
       {isCartOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsCartOpen(false)}
+            aria-hidden="true"
             className="fixed inset-0 bg-black z-40"
           />
 
           {/* Drawer */}
-          <motion.div
+          <m.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -35,7 +36,8 @@ export const CartDrawer = () => {
               <h2 className="text-lg font-bold text-gray-900">Your Cart</h2>
               <button 
                 onClick={() => setIsCartOpen(false)}
-                className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+                aria-label="Close cart"
+                className="p-2 -m-2 text-gray-400 hover:text-gray-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -80,10 +82,11 @@ export const CartDrawer = () => {
                       <div className="absolute top-1/2 left-6 right-6 h-3 bg-[#D6DAD3] -translate-y-1/2 rounded-full" />
                       
                       {/* Filled Track */}
-                      <motion.div 
-                        className="absolute top-1/2 left-6 h-3 bg-[#FF8A9B] -translate-y-1/2 rounded-full z-10"
-                        initial={{ width: 0 }}
-                        animate={{ width: `calc(${progressPercentage}% - 3rem)` }}
+                      <m.div 
+                        className="absolute top-1/2 left-6 h-3 bg-[#FF8A9B] origin-left -translate-y-1/2 rounded-full z-10"
+                        style={{ width: 'calc(100% - 3rem)' }}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: progressPercentage / 100 }}
                         transition={{ duration: 0.5, ease: "easeInOut" }}
                       />
                       
@@ -94,7 +97,7 @@ export const CartDrawer = () => {
                           return (
                             <div key={tier.id} className="flex flex-col items-center w-1/3 relative">
                               {/* Circle Marker */}
-                              <motion.div 
+                              <m.div 
                                 className="w-10 h-10 rounded-full flex items-center justify-center shadow-sm z-20 bg-[#D6DAD3] text-[#2C3E50]"
                                 animate={isReached ? { scale: [1, 1.15, 1] } : {}}
                                 transition={{ duration: 0.4 }}
@@ -110,7 +113,7 @@ export const CartDrawer = () => {
                                       <path d="M12 2l3 6 6 1-4 4 1 6-6-3-6 3 1-6-4-4 6-1z" />
                                     )}
                                   </svg>
-                              </motion.div>
+                              </m.div>
                               
                               {/* Label */}
                               <div className="absolute top-14 text-center w-full">
@@ -159,6 +162,7 @@ export const CartDrawer = () => {
                         src={item.product.images[0]?.url || "/placeholder.svg"} 
                         alt={item.product.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover"
                       />
                     </div>
@@ -169,6 +173,7 @@ export const CartDrawer = () => {
                           <h3 className="font-medium text-sm text-gray-900 line-clamp-1">{item.product.title}</h3>
                           <button 
                             onClick={() => removeFromCart(item.product.id)}
+                            aria-label="Remove item"
                             className="text-gray-400 hover:text-red-500 disabled:opacity-50"
                             disabled={isCartLoading}
                           >
@@ -182,6 +187,7 @@ export const CartDrawer = () => {
                         <div className="flex items-center border border-gray-200 rounded-lg bg-white">
                           <button 
                             onClick={() => updateQuantity(item.product.id, -1)}
+                            aria-label="Decrease quantity"
                             className="p-1 hover:bg-gray-100 rounded-l-lg transition-colors disabled:opacity-50"
                             disabled={isCartLoading}
                           >
@@ -190,6 +196,7 @@ export const CartDrawer = () => {
                           <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
                           <button 
                             onClick={() => updateQuantity(item.product.id, 1)}
+                            aria-label="Increase quantity"
                             className="p-1 hover:bg-gray-100 rounded-r-lg transition-colors disabled:opacity-50"
                             disabled={isCartLoading}
                           >
@@ -219,7 +226,7 @@ export const CartDrawer = () => {
                 </a>
               </div>
             )}
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

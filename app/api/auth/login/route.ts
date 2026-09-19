@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
 
-    const res = await shopifyFetch<any>({
+    const res = await shopifyFetch<unknown>({
       query: customerAccessTokenCreateMutation,
       variables: { input: { email, password } },
       cache: 'no-store',

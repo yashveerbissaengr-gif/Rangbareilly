@@ -12,6 +12,7 @@ export const PromoBanner = () => {
             src="https://images.unsplash.com/photo-1629224316810-9d8805b95e76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
             alt="Promotional Banner"
             fill
+            sizes="100vw"
             className="object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center p-6">

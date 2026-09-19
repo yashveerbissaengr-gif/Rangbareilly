@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 const announcements = [
   "EASY RETURN",
@@ -20,7 +20,7 @@ export const TopBar = () => {
         transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
       >
         {announcements.map((text, i) => (
-          <span key={i} className="mx-8">
+          <span key={text} className="mx-8">
             {text}
           </span>
         ))}

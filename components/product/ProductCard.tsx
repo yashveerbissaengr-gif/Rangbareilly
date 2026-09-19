@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+
 import { useCart } from "@/lib/context/CartContext";
 import { Product } from "@/types";
 import { Heart } from "lucide-react";
@@ -17,7 +17,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     : 0;
 
   return (
-    <div className="bg-white rounded-3xl p-3 border border-[rgba(230,57,86,0.08)] hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between">
+    <div className="bg-white rounded-3xl p-3 border border-[rgba(230,57,86,0.08)] hover:-translate-y-2 hover:shadow-2xl transition duration-300 flex flex-col justify-between">
       <div className="relative aspect-square w-full rounded-2xl bg-gray-50 overflow-hidden group">
         {/* Pills */}
         <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
@@ -34,6 +34,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         {/* Wishlist Button */}
         <button 
           onClick={(e) => { e.preventDefault(); setIsWishlisted(!isWishlisted); }}
+          aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center border border-gray-100 shadow-sm hover:scale-110 transition-transform"
         >
           <Heart 
@@ -45,6 +46,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           src={product.images[0]?.url || "/placeholder.svg"}
           alt={product.title}
           fill
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
       </div>
@@ -80,7 +82,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             }
           }}
           disabled={product.variants[0]?.stock === 0}
-          className={`w-full mt-3 font-extrabold text-[13px] py-3 rounded-full transition-all shadow-sm flex items-center justify-center gap-1 ${
+          className={`w-full mt-3 font-extrabold text-[13px] py-3 rounded-full transition-colors shadow-sm flex items-center justify-center gap-1 ${
             product.variants[0]?.stock === 0 
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
               : 'bg-[#1F1215] hover:bg-[#E63956] text-white hover:shadow-[0_5px_15px_rgba(230,57,86,0.3)]'

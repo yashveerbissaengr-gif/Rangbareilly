@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Home,
@@ -75,6 +75,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={onClose}
+            aria-hidden="true"
             className="fixed inset-0 bg-black z-50"
           />
 
@@ -127,7 +128,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
                   key={href}
                   href={href}
                   onClick={onClose}
-                  className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-[#E63956]/8 text-[#1F1215] hover:text-[#E63956] transition-all group"
+                  className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-[#E63956]/8 text-[#1F1215] hover:text-[#E63956] transition group"
                 >
                   <Icon className="w-4 h-4 text-[#E63956]/70 group-hover:text-[#E63956]" />
                   <span className="font-semibold text-sm">{label}</span>
@@ -146,7 +147,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
                   key={href}
                   href={href}
                   onClick={onClose}
-                  className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-[#E63956]/8 text-[#1F1215] hover:text-[#E63956] transition-all group"
+                  className="flex items-center gap-3 px-3 py-3 rounded-xl hover:bg-[#E63956]/8 text-[#1F1215] hover:text-[#E63956] transition group"
                 >
                   <Icon className="w-4 h-4 text-[#E63956]/70 group-hover:text-[#E63956]" />
                   <span className="font-semibold text-sm">{label}</span>
@@ -166,7 +167,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
                     key={href}
                     href={href}
                     onClick={onClose}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-[rgba(230,57,86,0.2)] text-[#7D6B6E] hover:border-[#E63956] hover:text-[#E63956] hover:bg-[#E63956]/5 transition-all"
+                    className="text-xs font-semibold px-3 py-1.5 rounded-full border border-[rgba(230,57,86,0.2)] text-[#7D6B6E] hover:border-[#E63956] hover:text-[#E63956] hover:bg-[#E63956]/5 transition"
                   >
                     {label}
                   </Link>
@@ -184,7 +185,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
                   key={href}
                   href={href}
                   onClick={onClose}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[#7D6B6E] hover:text-[#1F1215] transition-all text-sm"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 text-[#7D6B6E] hover:text-[#1F1215] transition text-sm"
                 >
                   <Icon className="w-4 h-4 opacity-60" />
                   <span>{label}</span>
@@ -195,7 +196,7 @@ export const MobileMenuSidebar = ({ isOpen, onClose }: MobileMenuSidebarProps) =
             {/* Footer */}
             <div className="mt-auto px-5 py-4 border-t border-gray-100 text-center">
               <p className="text-[11px] text-[#7D6B6E]">
-                ✨ Artificial Jewelry · Bareilly, India
+                ✨ Artificial Jewelry · Rangbareilly, India
               </p>
             </div>
           </motion.aside>

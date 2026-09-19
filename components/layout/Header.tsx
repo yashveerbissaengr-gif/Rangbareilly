@@ -34,6 +34,7 @@ export const Header = () => {
                   src="/logo.png"
                   alt="Rangbareilly Logo"
                   fill
+                  sizes="(max-width: 768px) 48px, 48px"
                   className="object-contain mix-blend-multiply"
                   priority
                 />
@@ -46,34 +47,35 @@ export const Header = () => {
 
           {/* Desktop Navigation — fills center */}
           <nav className="hidden lg:flex items-center gap-1 text-[13px] font-bold text-[#1F1215] flex-1 justify-center">
-            <Link href="/under-499" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all">UNDER 499</Link>
-            <Link href="/under-399" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all">UNDER 399</Link>
-            <Link href="/under-299" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all">UNDER 299</Link>
-            <Link href="/under-199" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all">UNDER 199</Link>
+            <Link href="/under-499" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 499</Link>
+            <Link href="/under-399" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 399</Link>
+            <Link href="/under-299" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 299</Link>
+            <Link href="/under-199" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 199</Link>
             <div className="h-4 w-px bg-gray-200 mx-2" />
-            <Link href="/category/rings" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Rings</Link>
-            <Link href="/category/bag-charms" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Bag Charms</Link>
-            <Link href="/category/stainless-steel" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Stainless Steel</Link>
-            <Link href="/category/earrings" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Earrings</Link>
-            <Link href="/category/bracelets" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Bracelets</Link>
-            <Link href="/category/necklace" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Necklace</Link>
-            <Link href="/category/arm-cuffs" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-all text-[#7D6B6E]">Arm Cuffs</Link>
+            <Link href="/category/rings" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Rings</Link>
+            <Link href="/category/bag-charms" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Bag Charms</Link>
+            <Link href="/category/stainless-steel" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Stainless Steel</Link>
+            <Link href="/category/earrings" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Earrings</Link>
+            <Link href="/category/bracelets" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Bracelets</Link>
+            <Link href="/category/necklace" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Necklace</Link>
+            <Link href="/category/arm-cuffs" className="px-3 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors text-[#7D6B6E]">Arm Cuffs</Link>
           </nav>
 
           {/* Icons — pushed to far right */}
           <div className="flex items-center gap-3 text-[#1F1215] ml-auto">
-            <button className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition-all active:scale-95">
+            <button aria-label="Search" className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition active:scale-95">
               <Search className="w-4 h-4" />
             </button>
-            <Link href="/account/login" className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition-all active:scale-95">
+            <Link href="/account/login" className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition active:scale-95">
               <User className="w-4 h-4" />
             </Link>
-            <button className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition-all active:scale-95">
+            <button aria-label="Wishlist" className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition active:scale-95">
               <Heart className="w-4 h-4" />
             </button>
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition-all active:scale-95"
+              aria-label="Open cart"
+              className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-[rgba(230,57,86,0.1)] hover:border-[#E63956]/30 hover:bg-[#E63956]/5 hover:text-[#E63956] transition active:scale-95"
             >
               <ShoppingBag className="w-4 h-4" />
               {totalItems > 0 && (

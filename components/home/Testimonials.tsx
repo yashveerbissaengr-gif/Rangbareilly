@@ -47,11 +47,11 @@ export function Testimonials({ theme = "core" }: { theme?: "core" | "loud" }) {
   };
 
   const isLoud = theme === "loud";
-  const bgClass = isLoud ? "bg-[#2B2622]" : "bg-glint-ivory";
-  const textClass = isLoud ? "text-glint-ivory" : "text-glint-charcoal";
-  const mutedTextClass = isLoud ? "text-glint-ivory/60" : "text-glint-charcoal/60";
-  const accentTextClass = isLoud ? "text-[#C9A227]" : "text-glint-gold";
-  const buttonHoverClass = isLoud ? "hover:text-glint-ivory" : "hover:text-glint-charcoal";
+  const bgClass = isLoud ? "bg-[#2B2622]" : "bg-rangbareilly-background";
+  const textClass = isLoud ? "text-rangbareilly-background" : "text-rangbareilly-dark";
+  const mutedTextClass = isLoud ? "text-rangbareilly-background/60" : "text-rangbareilly-dark/60";
+  const accentTextClass = isLoud ? "text-[#C9A227]" : "text-rangbareilly-primary";
+  const buttonHoverClass = isLoud ? "hover:text-rangbareilly-background" : "hover:text-rangbareilly-dark";
 
   return (
     <section className={cn("py-32 px-6 text-center flex flex-col items-center", bgClass)}>

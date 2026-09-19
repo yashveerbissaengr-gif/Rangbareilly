@@ -15,8 +15,8 @@ const placeholders = [
 
 export function LovedByCustomers({ theme = "core" }: { theme?: "core" | "loud" }) {
   const isLoud = theme === "loud";
-  const textColor = isLoud ? "text-glint-ivory" : "text-glint-charcoal";
-  const mutedTextColor = isLoud ? "text-glint-ivory/60" : "text-glint-charcoal/60";
+  const textColor = isLoud ? "text-rangbareilly-background" : "text-rangbareilly-dark";
+  const mutedTextColor = isLoud ? "text-rangbareilly-background/60" : "text-rangbareilly-dark/60";
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -56,7 +56,7 @@ export function LovedByCustomers({ theme = "core" }: { theme?: "core" | "loud" }
                   aria-label="Add to cart"
                   className={cn(
                   "flex-none w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-                  isLoud ? "bg-[#C9A227] text-white hover:bg-[#A98217]" : "bg-glint-charcoal text-white hover:bg-glint-gold"
+                  isLoud ? "bg-[#C9A227] text-white hover:bg-[#A98217]" : "bg-rangbareilly-dark text-white hover:bg-rangbareilly-primary"
                 )}>
                   <ShoppingBag size={14} />
                 </button>

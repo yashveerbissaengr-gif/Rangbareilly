@@ -18,6 +18,10 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "Rangbareilly | Artificial Jewelry Online",
   description: "High-converting e-commerce store for Rangbareilly.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

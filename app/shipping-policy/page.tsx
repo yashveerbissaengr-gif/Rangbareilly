@@ -14,7 +14,7 @@ export default function ShippingPolicyPage() {
         
         <p>Please record an unboxing video while opening your package — this is required if you need to raise a damage claim.</p>
         
-        <p>If a package is returned to us as undeliverable, we'll contact you to arrange re-shipment or a refund, minus original shipping.</p>
+        <p>If a package is returned to us as undeliverable, we&apos;ll contact you to arrange re-shipment or a refund, minus original shipping.</p>
       </div>
     </div>
   );

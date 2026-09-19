@@ -16,10 +16,10 @@ export function AccordionItem({ title, children, defaultOpen = false, theme = "c
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   const isLoud = theme === "loud";
-  const borderClass = isLoud ? "border-glint-ivory/10" : "border-glint-charcoal/10";
-  const textClass = isLoud ? "text-glint-ivory" : "text-glint-charcoal";
-  const mutedTextClass = isLoud ? "text-glint-ivory/80" : "text-glint-charcoal/80";
-  const hoverClass = isLoud ? "group-hover:text-[#C9A227]" : "group-hover:text-glint-gold";
+  const borderClass = isLoud ? "border-rangbareilly-background/10" : "border-rangbareilly-dark/10";
+  const textClass = isLoud ? "text-rangbareilly-background" : "text-rangbareilly-dark";
+  const mutedTextClass = isLoud ? "text-rangbareilly-background/80" : "text-rangbareilly-dark/80";
+  const hoverClass = isLoud ? "group-hover:text-[#C9A227]" : "group-hover:text-rangbareilly-primary";
 
   return (
     <div className={cn("border-b", borderClass)}>

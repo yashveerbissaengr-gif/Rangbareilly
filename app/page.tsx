@@ -5,7 +5,7 @@ import { ProductSection } from "@/components/home/ProductSection";
 import { ReviewsSection } from "@/components/home/ReviewsSection";
 import { InstagramReels } from "@/components/home/InstagramReels";
 import { Footer } from "@/components/layout/Footer";
-import { getProducts, getCollection } from "@/lib/shopify";
+import { getProducts } from "@/lib/shopify";
 
 export default async function Home() {
   const allProducts = await getProducts();
@@ -17,7 +17,10 @@ export default async function Home() {
 
   const topSelling = [
     allProducts.find(p => p.title?.toLowerCase().includes("arm cuff") || p.tags?.includes("arm-cuffs")),
-    allProducts.find(p => p.title?.toLowerCase().includes("watch") || (p as any).productType?.toLowerCase() === "watch")
+    allProducts.find(p => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return p.title?.toLowerCase().includes("watch") || (p as any).productType?.toLowerCase() === "watch";
+    })
   ].filter(Boolean); // removes undefined
 
   return (
@@ -25,7 +28,10 @@ export default async function Home() {
       <HeroBanner />
       <CategoryBubbles />
       
-      {topSelling.length > 0 && <TopSellingSection products={topSelling as any} />}
+      {topSelling.length > 0 && (
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        <TopSellingSection products={topSelling as any} />
+      )}
       
       <InstagramReels />
       

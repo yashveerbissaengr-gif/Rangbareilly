@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { m } from "framer-motion";
 import type { SpinResult } from "./types";
 
@@ -82,20 +82,24 @@ export function SpinResultModal({ result, onClose }: SpinResultModalProps) {
       ))}
 
       {/* ── Backdrop ────────────────────────────────────────────────────── */}
-      <m.div
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        style={{ backgroundColor: "rgba(31,18,21,0.75)", backdropFilter: "blur(6px)" }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-        aria-modal="true"
-        role="dialog"
+      <dialog
+        open
+        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-transparent m-0 max-w-none max-h-none w-full h-full border-none"
         aria-label="Spin result"
       >
+        {/* Backdrop */}
+        <m.div
+          className="absolute inset-0"
+          style={{ backgroundColor: "rgba(31,18,21,0.75)", backdropFilter: "blur(6px)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          aria-hidden="true"
+        />
         {/* ── Modal card ────────────────────────────────────────────────── */}
         <m.div
-          className="relative w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl"
+          className="relative z-10 w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl"
           style={{
             background: "linear-gradient(135deg, #1F1215 0%, #3A0A14 100%)",
             border: "1.5px solid rgba(230,57,86,0.4)",
@@ -104,7 +108,6 @@ export function SpinResultModal({ result, onClose }: SpinResultModalProps) {
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.85, opacity: 0, y: 20 }}
           transition={{ type: "spring", stiffness: 280, damping: 22 }}
-          onClick={(e) => e.stopPropagation()}
         >
           {/* Decorative top gradient bar */}
           <div
@@ -171,7 +174,7 @@ export function SpinResultModal({ result, onClose }: SpinResultModalProps) {
                 <button
                   id="copy-coupon-button"
                   onClick={handleCopy}
-                  className="shrink-0 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+                  className="shrink-0 rounded-lg px-3 py-2 text-xs font-bold uppercase tracking-wider transition duration-200"
                   style={{
                     backgroundColor: copied ? "#10B981" : "#E63956",
                     color: "#FFFFFF",
@@ -198,7 +201,7 @@ export function SpinResultModal({ result, onClose }: SpinResultModalProps) {
             <m.button
               id="close-spin-result-button"
               onClick={onClose}
-              className="w-full py-4 rounded-xl text-sm font-bold uppercase tracking-widest transition-all duration-300"
+              className="w-full py-4 rounded-xl text-sm font-bold uppercase tracking-widest transition duration-300"
               style={{
                 backgroundColor: "#E63956",
                 color: "#FFFFFF",
@@ -212,7 +215,7 @@ export function SpinResultModal({ result, onClose }: SpinResultModalProps) {
             </m.button>
           </div>
         </m.div>
-      </m.div>
+      </dialog>
 
       {/* Confetti keyframes */}
       <style>{`

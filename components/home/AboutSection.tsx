@@ -19,7 +19,7 @@ export function AboutSection() {
             Small Sparks. Everyday.
           </Heading>
           <Text className="text-[#2B2622]/80 text-lg">
-            GLINT was founded on a simple premise: fine jewelry shouldn&apos;t be reserved for special occasions. It should be lived in, loved, and worn every single day.
+            RANGBAREILLY was founded on a simple premise: fine jewelry shouldn&apos;t be reserved for special occasions. It should be lived in, loved, and worn every single day.
           </Text>
         </div>
 
@@ -59,7 +59,7 @@ export function AboutSection() {
                 We believe that true luxury whispers. It doesn&apos;t shout. Our pieces are characterized by clean lines, negative space, and an uncompromising dedication to structural integrity.
               </Text>
               <Text className="text-[#2B2622]/80 leading-relaxed">
-                Every piece of GLINT jewelry is handcrafted using responsibly sourced 14k solid gold and conflict-free diamonds. We design with longevity in mind, ensuring your pieces will outlast fleeting trends and become part of your daily uniform.
+                Every piece of RANGBAREILLY jewelry is handcrafted using responsibly sourced 14k solid gold and conflict-free diamonds. We design with longevity in mind, ensuring your pieces will outlast fleeting trends and become part of your daily uniform.
               </Text>
             </m.div>
           </div>

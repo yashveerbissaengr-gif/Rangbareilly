@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
-  User, ShoppingBag, MapPin, Heart, LogOut,
+  ShoppingBag, MapPin, Heart, LogOut,
   ChevronRight, Package, Clock, CheckCircle2, Truck, Loader2,
 } from "lucide-react";
 
@@ -57,17 +57,34 @@ export default function AccountPage() {
   const [loggingOut, setLoggingOut] = useState(false);
 
   useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => r.json())
+    let isCurrent = true;
+    const controller = new AbortController();
+
+    void fetch("/api/auth/me", { signal: controller.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+        return r.json();
+      })
       .then(({ customer }) => {
+        if (!isCurrent) return;
         if (!customer) {
-          router.replace("/account/login");
+          window.location.assign("/account/login");
         } else {
           setCustomer(customer);
         }
       })
-      .catch(() => router.replace("/account/login"))
-      .finally(() => setLoading(false));
+      .catch((err) => {
+        if (!isCurrent || err.name === 'AbortError') return;
+        window.location.assign("/account/login");
+      })
+      .finally(() => {
+        if (isCurrent) setLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+      controller.abort();
+    };
   }, [router]);
 
   const handleLogout = async () => {
@@ -112,7 +129,7 @@ export default function AccountPage() {
           <button
             onClick={handleLogout}
             disabled={loggingOut}
-            className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-2 rounded-full text-xs font-bold transition-all"
+            className="flex items-center gap-1.5 bg-white/15 hover:bg-white/25 px-3 py-2 rounded-full text-xs font-bold transition"
           >
             {loggingOut ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <LogOut className="w-3.5 h-3.5" />}
             Logout
@@ -141,7 +158,7 @@ export default function AccountPage() {
           {(["orders", "addresses", "profile"] as Tab[]).map((t) => (
             <button
               key={t} onClick={() => setTab(t)}
-              className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-wide rounded-xl transition-all ${
+              className={`flex-1 py-2.5 text-xs font-bold uppercase tracking-wide rounded-xl transition ${
                 tab === t
                   ? "bg-white text-[#E63956] shadow-sm"
                   : "text-[#7D6B6E] hover:text-[#1F1215]"
@@ -161,7 +178,7 @@ export default function AccountPage() {
                 <p className="font-bold text-[#1F1215]">No orders yet</p>
                 <p className="text-sm text-[#7D6B6E] mt-1">When you place an order, it&apos;ll appear here.</p>
                 <Link href="/products"
-                  className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#E63956] border border-[#E63956]/30 px-4 py-2 rounded-full hover:bg-[#E63956] hover:text-white transition-all">
+                  className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#E63956] border border-[#E63956]/30 px-4 py-2 rounded-full hover:bg-[#E63956] hover:text-white transition">
                   Shop Now <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -187,11 +204,11 @@ export default function AccountPage() {
                     </div>
                     {/* Items */}
                     <div className="flex gap-2 flex-wrap mb-3">
-                      {items.slice(0, 3).map((item, i) => (
-                        <div key={i} className="flex items-center gap-2 bg-[#fafafa] rounded-xl px-2 py-1.5 text-xs">
+                      {items.slice(0, 3).map((item) => (
+                        <div key={item.variant?.id || item.title} className="flex items-center gap-2 bg-[#fafafa] rounded-xl px-2 py-1.5 text-xs">
                           {item.variant?.image && (
                             <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0">
-                              <Image src={item.variant.image.url} alt={item.variant.image.altText || item.title} fill className="object-cover" />
+                              <Image src={item.variant.image.url} alt={item.variant.image.altText || item.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
                             </div>
                           )}
                           <span className="text-[#1F1215] font-medium max-w-[120px] truncate">{item.title}</span>
@@ -262,7 +279,7 @@ export default function AccountPage() {
               <a
                 href={`https://${process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN}/account`}
                 target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-[#E63956]/30 text-[#E63956] text-sm font-bold hover:bg-[#E63956] hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-[#E63956]/30 text-[#E63956] text-sm font-bold hover:bg-[#E63956] hover:text-white transition"
               >
                 Edit Profile on Shopify <ChevronRight className="w-4 h-4" />
               </a>

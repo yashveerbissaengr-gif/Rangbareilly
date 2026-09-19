@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
 
 const reels = [
   {
@@ -82,7 +82,6 @@ export const InstagramReels = () => {
                   src={`${reel.embedUrl}?hidecaption=true`}
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency
                   allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                   className="absolute max-w-none transition-opacity duration-300"
                   style={{
@@ -109,7 +108,7 @@ export const InstagramReels = () => {
                   className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full pl-1.5 pr-3 py-1.5 w-max pointer-events-auto hover:bg-white transition-colors shadow-sm"
                 >
                   <div className="w-6 h-6 rounded-full overflow-hidden bg-white flex items-center justify-center">
-                    <img src="/logo.png" alt="Rangbareilly" className="w-full h-full object-cover" />
+                    <Image width={600} height={800} src="/logo.png" alt="Rangbareilly" className="w-full h-full object-cover" />
                   </div>
                   <span className="text-xs font-bold text-gray-900">@rangbareilly</span>
                 </a>

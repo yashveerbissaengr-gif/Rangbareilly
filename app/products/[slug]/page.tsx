@@ -42,6 +42,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               src={product.images[0]?.url || "/placeholder.svg"}
               alt={product.title}
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>

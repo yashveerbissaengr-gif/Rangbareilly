@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Star, ChevronDown, ChevronUp } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence } from "framer-motion";
 
 const reviews = [
   { id: 1, name: "Priya S.", rating: 5, text: "The quality of the viral hand stack is amazing! Looks exactly like the pictures." },
@@ -64,7 +64,7 @@ export const ReviewsSection = () => {
           
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+              <div key={faq.question} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   className="w-full px-6 py-4 flex justify-between items-center bg-white hover:bg-gray-50 transition-colors text-left"
@@ -79,9 +79,9 @@ export const ReviewsSection = () => {
                 <AnimatePresence>
                   {openFaq === index && (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
                       className="px-6 pb-4 text-gray-600 text-sm"
                     >
                       {faq.answer}

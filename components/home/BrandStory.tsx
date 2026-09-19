@@ -8,9 +8,9 @@ import { cn } from "@/lib/utils";
 
 export function BrandStory({ theme = "core" }: { theme?: "core" | "loud" }) {
   const isLoud = theme === "loud";
-  const bgClass = isLoud ? "bg-[#2B2622]" : "bg-glint-ivory";
-  const textClass = isLoud ? "text-glint-ivory" : "text-glint-charcoal";
-  const accentClass = isLoud ? "text-[#C9A227]" : "text-glint-gold";
+  const bgClass = isLoud ? "bg-[#2B2622]" : "bg-rangbareilly-background";
+  const textClass = isLoud ? "text-rangbareilly-background" : "text-rangbareilly-dark";
+  const accentClass = isLoud ? "text-[#C9A227]" : "text-rangbareilly-primary";
 
   return (
     <section className={cn("flex items-center justify-center min-h-[70vh] px-6 py-32", bgClass)}>

@@ -85,7 +85,7 @@ export default function SignupPage() {
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
             <div className="relative h-16 w-16 mb-3">
-              <Image src="/logo.png" alt="Rangbareilly" fill className="object-contain mix-blend-multiply" />
+              <Image src="/logo.png" alt="Rangbareilly" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-contain mix-blend-multiply" />
             </div>
             <h1 className="text-2xl font-extrabold text-[#1F1215] tracking-tight">Create Account</h1>
             <p className="text-sm text-[#7D6B6E] mt-1">Join Rangbareilly for exclusive deals ✨</p>
@@ -104,50 +104,55 @@ export default function SignupPage() {
             {/* Name Row */}
             <div className="flex gap-3">
               <div className="flex-1">
-                <label className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">First Name</label>
+                <label htmlFor="firstName" className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">First Name</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7D6B6E]" />
                   <input
+                    id="firstName"
                     type="text" name="firstName" value={form.firstName} onChange={handleChange}
                     required placeholder="Priya"
-                    className="w-full pl-9 pr-3 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition-all"
+                    className="w-full pl-9 pr-3 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition"
                   />
                 </div>
               </div>
               <div className="flex-1">
-                <label className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Last Name</label>
+                <label htmlFor="lastName" className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Last Name</label>
                 <input
+                  id="lastName"
                   type="text" name="lastName" value={form.lastName} onChange={handleChange}
                   required placeholder="Sharma"
-                  className="w-full px-3 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition-all"
+                  className="w-full px-3 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Email Address</label>
+              <label htmlFor="email" className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7D6B6E]" />
                 <input
+                  id="email"
                   type="email" name="email" value={form.email} onChange={handleChange}
                   required placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Password</label>
+              <label htmlFor="password" className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7D6B6E]" />
                 <input
+                  id="password"
                   type={showPass ? "text" : "password"} name="password" value={form.password} onChange={handleChange}
                   required placeholder="Min. 5 characters"
-                  className="w-full pl-10 pr-12 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition-all"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition"
                 />
                 <button type="button" onClick={() => setShowPass((p) => !p)}
+                  aria-label={showPass ? "Hide password" : "Show password"}
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#7D6B6E] hover:text-[#E63956] transition-colors">
                   {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -157,7 +162,7 @@ export default function SignupPage() {
                 <div className="mt-2 flex items-center gap-2">
                   <div className="flex gap-1 flex-1">
                     {[1,2,3,4].map((i) => (
-                      <div key={i} className={`h-1 flex-1 rounded-full transition-all duration-300 ${i <= strength ? strengthColors[strength] : "bg-gray-100"}`} />
+                      <div key={i} className={`h-1 flex-1 rounded-full transition duration-300 ${i <= strength ? strengthColors[strength] : "bg-gray-100"}`} />
                     ))}
                   </div>
                   <span className="text-[10px] font-bold text-[#7D6B6E]">{strengthLabels[strength]}</span>
@@ -167,13 +172,14 @@ export default function SignupPage() {
 
             {/* Confirm Password */}
             <div>
-              <label className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="block text-xs font-bold text-[#1F1215] mb-1.5 uppercase tracking-wide">Confirm Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7D6B6E]" />
                 <input
+                  id="confirmPassword"
                   type={showPass ? "text" : "password"} name="confirmPassword" value={form.confirmPassword} onChange={handleChange}
                   required placeholder="Re-enter password"
-                  className="w-full pl-10 pr-12 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition-all"
+                  className="w-full pl-10 pr-12 py-3 rounded-xl border border-[rgba(230,57,86,0.2)] bg-[#fafafa] text-[#1F1215] text-sm placeholder:text-[#bbb] focus:outline-none focus:border-[#E63956] focus:ring-2 focus:ring-[#E63956]/10 transition"
                 />
                 {form.confirmPassword && (
                   <div className={`absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 ${form.password === form.confirmPassword ? "text-green-500" : "text-red-400"}`}>
@@ -186,7 +192,7 @@ export default function SignupPage() {
             {/* Submit */}
             <button
               type="submit" disabled={loading}
-              className="w-full mt-2 flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-[#E63956] to-[#FF4D4D] text-white font-extrabold text-sm uppercase tracking-wide shadow-[0_6px_20px_rgba(230,57,86,0.35)] hover:shadow-[0_8px_28px_rgba(230,57,86,0.5)] hover:-translate-y-0.5 active:scale-95 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full mt-2 flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-[#E63956] to-[#FF4D4D] text-white font-extrabold text-sm uppercase tracking-wide shadow-[0_6px_20px_rgba(230,57,86,0.35)] hover:shadow-[0_8px_28px_rgba(230,57,86,0.5)] hover:-translate-y-0.5 active:scale-95 transition disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <>Create Account <ArrowRight className="w-4 h-4" /></>}
             </button>

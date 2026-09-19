@@ -1,15 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function ActivatePage({
   params,
 }: {
-  params: { id: string; token: string };
+  params: Promise<{ id: string; token: string }>;
 }) {
+  const { id, token } = use(params);
   const router = useRouter();
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -23,7 +23,7 @@ export default function ActivatePage({
 
     try {
       // Reconstruct the original Shopify activation URL format
-      const activationUrl = `https://rangbareilly.myshopify.com/account/activate/${params.id}/${params.token}`;
+      const activationUrl = `https://rangbareilly.myshopify.com/account/activate/${id}/${token}`;
 
       const res = await fetch('/api/auth/activate', {
         method: 'POST',
@@ -39,8 +39,8 @@ export default function ActivatePage({
 
       router.push('/account');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -70,21 +70,23 @@ export default function ActivatePage({
 
         <form onSubmit={handleActivate} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
+            <label htmlFor="password" className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">
               Create Password
             </label>
             <div className="relative">
               <input
+                id="password"
                 type={showPassword ? 'text' : 'password'}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent transition"
                 placeholder="••••••••"
                 minLength={8}
               />
               <button
                 type="button"
+                aria-label={showPassword ? "Hide password" : "Show password"}
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
               >

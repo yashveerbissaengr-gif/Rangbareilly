@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   
@@ -9,9 +11,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
       <p className="text-gray-600 max-w-lg mb-8">
         This page is a placeholder for the static frontend. In a full production application, this would contain the necessary content or forms.
       </p>
-      <a href="/" className="bg-[#8B263E] text-white px-8 py-3 rounded-full font-bold uppercase tracking-wide hover:bg-opacity-90 transition-colors">
+      <Link href="/" className="bg-[#8B263E] text-white px-8 py-3 rounded-full font-bold uppercase tracking-wide hover:bg-opacity-90 transition-colors">
         Return Home
-      </a>
+      </Link>
     </div>
   );
 }

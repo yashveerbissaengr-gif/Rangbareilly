@@ -32,6 +32,7 @@ export const Footer = () => {
                 src="/logo.png" 
                 alt="Rangbareilly Logo" 
                 fill
+                sizes="(max-width: 768px) 192px, 192px"
                 className="object-contain object-left mix-blend-multiply" 
               />
             </div>
@@ -41,6 +42,7 @@ export const Footer = () => {
             <form className="flex gap-2 max-w-md">
               <input 
                 type="email" 
+                aria-label="Email address"
                 placeholder="Enter your email" 
                 className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[#FF6B6C] focus:ring-1 focus:ring-[#FF6B6C]"
                 required
