@@ -205,7 +205,7 @@ export default function AccountPage() {
                     {/* Items */}
                     <div className="flex gap-2 flex-wrap mb-3">
                       {items.slice(0, 3).map((item) => (
-                        <div key={item.variant?.id || item.title} className="flex items-center gap-2 bg-[#fafafa] rounded-xl px-2 py-1.5 text-xs">
+                        <div key={item.title} className="flex items-center gap-2 bg-[#fafafa] rounded-xl px-2 py-1.5 text-xs">
                           {item.variant?.image && (
                             <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0">
                               <Image src={item.variant.image.url} alt={item.variant.image.altText || item.title} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
