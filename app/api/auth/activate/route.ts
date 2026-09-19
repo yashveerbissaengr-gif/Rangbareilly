@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const res = await shopifyFetch<unknown>({
+    const res = await shopifyFetch<any>({
       query: customerActivateByUrlMutation,
       variables: {
         activationUrl,
