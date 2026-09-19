@@ -10,7 +10,7 @@ export async function POST() {
 
     if (token) {
       // Invalidate token on Shopify side
-      await shopifyFetch<unknown>({
+      await shopifyFetch<any>({
         query: customerAccessTokenDeleteMutation,
         variables: { customerAccessToken: token },
         cache: 'no-store',

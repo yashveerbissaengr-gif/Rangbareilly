@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const { firstName, lastName, email, password } = await req.json();
 
     // 1. Create the customer account
-    const createRes = await shopifyFetch<unknown>({
+    const createRes = await shopifyFetch<any>({
       query: customerCreateMutation,
       variables: { input: { firstName, lastName, email, password } },
       cache: 'no-store',
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Auto-login after signup
-    const loginRes = await shopifyFetch<unknown>({
+    const loginRes = await shopifyFetch<any>({
       query: customerAccessTokenCreateMutation,
       variables: { input: { email, password } },
       cache: 'no-store',
