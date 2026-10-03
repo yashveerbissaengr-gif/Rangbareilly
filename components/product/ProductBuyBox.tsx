@@ -30,18 +30,20 @@ interface ProductBuyBoxProps {
 export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
   const { addToCart, checkoutUrl } = useCart();
 
-  // State
-  const [selectedFinish, setSelectedFinish] = useState(settings.availableFinishes[0] || "GOLD");
-  const [selectedSize, setSelectedSize] = useState(settings.availableSizes[0] || "Standard");
+  // Variant selection from real Shopify data
+  const hasVariants = product.variants && product.variants.length > 1;
+  const initialVariant = product.variants?.[0];
+  const [selectedVariant, setSelectedVariant] = useState<ProductVariant | undefined>(initialVariant);
+
   const [quantity, setQuantity] = useState(1);
   const [hasGiftSleeve, setHasGiftSleeve] = useState(false);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [shareFeedback, setShareFeedback] = useState(false);
 
-  // Price calculations
-  const basePrice = product.price > 0 ? product.price : 499;
-  const sleeveExtra = hasGiftSleeve ? settings.giftSleeve.price : 0;
+  // Price calculations based on selected variant
+  const basePrice = selectedVariant?.price || (product.price > 0 ? product.price : 499);
+  const sleeveExtra = hasGiftSleeve ? settings.giftSleeve?.price || 0 : 0;
   const activePrice = basePrice + sleeveExtra;
   const totalItemPrice = activePrice * quantity;
 
@@ -49,12 +51,12 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
   const handleAddToCart = async () => {
     setIsAdding(true);
     try {
-      // Find matching variant or create payload
-      const variantToUse: ProductVariant = product.variants?.[0] || {
+      const variantToUse: ProductVariant = selectedVariant || {
         id: product.id,
-        name: `${selectedFinish}${settings.availableSizes.length > 0 ? ` / ${selectedSize}` : ""}`,
+        name: "Default",
         sku: settings.sku,
-        priceDelta: sleeveExtra,
+        priceDelta: 0,
+        price: activePrice,
         stock: 100,
       };
 
@@ -145,7 +147,7 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
       </div>
 
       {/* 6. Deals Card (Offer ending soon, STACK4, view all) */}
-      <ProductDealsBox deal={settings.deal} />
+      {settings.deal?.couponCode && <ProductDealsBox deal={settings.deal} />}
 
       {/* 7. Stock Status */}
       <div className="flex items-center gap-2 my-2 text-xs font-bold text-emerald-800">
@@ -154,60 +156,35 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
       </div>
 
       {/* 8. Add a gift sleeve Upsell */}
-      <ProductGiftSleeve
-        giftSleeve={settings.giftSleeve}
-        isSelected={hasGiftSleeve}
-        onToggle={setHasGiftSleeve}
-      />
+      {settings.giftSleeve?.title && (
+        <ProductGiftSleeve
+          giftSleeve={settings.giftSleeve}
+          isSelected={hasGiftSleeve}
+          onToggle={setHasGiftSleeve}
+        />
+      )}
 
-      {/* 9. Finish / Color / Variant Selector */}
-      {settings.availableFinishes.length > 0 && (
+      {/* 9. Variant Selector from Shopify Data */}
+      {hasVariants && (
         <div className="my-3">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-bold uppercase tracking-wider text-gray-700">
-              COLOR / FINISH: <span className="text-black font-extrabold">{selectedFinish}</span>
+              VARIANT: <span className="text-black font-extrabold">{selectedVariant?.name}</span>
             </span>
           </div>
           <div className="flex flex-wrap gap-2.5">
-            {settings.availableFinishes.map((finish) => (
+            {product.variants!.map((variant) => (
               <button
-                key={finish}
+                key={variant.id}
                 type="button"
-                onClick={() => setSelectedFinish(finish)}
+                onClick={() => setSelectedVariant(variant)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
-                  selectedFinish === finish
+                  selectedVariant?.id === variant.id
                     ? "border-black bg-black text-white shadow-xs"
                     : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                 }`}
               >
-                {finish}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 10. Size Selector (if applicable) */}
-      {settings.availableSizes.length > 0 && settings.availableSizes[0] !== "Standard" && (
-        <div className="my-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-gray-700">
-              SIZE: <span className="text-black font-extrabold">{selectedSize}</span>
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {settings.availableSizes.map((size) => (
-              <button
-                key={size}
-                type="button"
-                onClick={() => setSelectedSize(size)}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-bold border transition-all ${
-                  selectedSize === size
-                    ? "border-black bg-black text-white"
-                    : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
-                }`}
-              >
-                {size}
+                {variant.name}
               </button>
             ))}
           </div>
@@ -302,7 +279,7 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
       />
 
       {/* 14. Value Proposition / Trust Guarantees (Warm Beige Box) */}
-      <ProductTrustBadges finishLabel={selectedFinish} />
+      <ProductTrustBadges finishLabel={selectedVariant?.name || "Premium"} />
     </div>
   );
 }

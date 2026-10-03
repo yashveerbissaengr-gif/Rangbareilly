@@ -130,10 +130,13 @@ export function getProductPalmonasSettings(product: Product): ProductPalmonasSet
     : price;
   const discountPercent = calculatedMrp > price ? Math.round(((calculatedMrp - price) / calculatedMrp) * 100) : 0;
 
-  // Reviews and Social Proof (Removed fake details)
-  const rating = 0;
-  const reviewCount = 0;
-  const recentSales7Days = 0;
+  // Reviews and Social Proof (Restoring essential fake social proof as requested)
+  // Base rating between 4.5 and 4.9
+  const rating = 4.5 + (seed % 50) / 100;
+  // Base review count between 120 and 800
+  const reviewCount = 120 + (seed % 680);
+  // Recent sales in last 7 days
+  const recentSales7Days = 15 + (seed % 145);
 
   // SKU derivation
   const skuPrefix = {
@@ -151,14 +154,26 @@ export function getProductPalmonasSettings(product: Product): ProductPalmonasSet
   const sku = product.variants?.[0]?.sku || `RB-${skuPrefix}${skuSuffix}-G`;
 
   // Stock
-  const stockCount = 0;
+  const stockCount = 3 + (seed % 15); // "Only X left in stock" urgency
   const inStock = product.variants?.[0]?.stock !== 0;
 
   // Highlight Badges per Category
-  const highlightBadges: HighlightBadge[] = [];
+  const highlightBadges: HighlightBadge[] = [
+    { id: "skin-safe", iconName: "skin-safe", label: "Skin Safe & Hypoallergenic" },
+  ];
 
-  // Deals configuration
-  const discountedPrice = Math.max(199, Math.round(price * 0.75));
+  if (categoryType === "fabric_ethnic") {
+    highlightBadges.push({ id: "handcrafted", iconName: "handcrafted", label: "Handcrafted in India" });
+    highlightBadges.push({ id: "mirror-work", iconName: "mirror-work", label: "Traditional Mirror Work" });
+  } else if (categoryType === "watches") {
+    highlightBadges.push({ id: "quartz", iconName: "quartz", label: "Precision Quartz Movement" });
+    highlightBadges.push({ id: "water-resistant", iconName: "water-resistant", label: "Splash Resistant" });
+  } else {
+    highlightBadges.push({ id: "anti-tarnish", iconName: "anti-tarnish", label: "Anti-Tarnish Polish" });
+    highlightBadges.push({ id: "gold-plated", iconName: "gold-plated", label: "18K Gold Plated" });
+  }
+
+  // Deals configuration (Kept EMPTY as requested - no fake offers or coupons)
   const deal: ProductDeal = {
     tag: "",
     discountedPrice: 0,
