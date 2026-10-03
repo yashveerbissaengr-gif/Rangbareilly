@@ -130,10 +130,10 @@ export function getProductPalmonasSettings(product: Product): ProductPalmonasSet
     : price;
   const discountPercent = calculatedMrp > price ? Math.round(((calculatedMrp - price) / calculatedMrp) * 100) : 0;
 
-  // Reviews and Social Proof
-  const rating = 4.7 + ((seed % 4) * 0.1);
-  const reviewCount = 280 + (seed % 650);
-  const recentSales7Days = 1200 + (seed % 2400);
+  // Reviews and Social Proof (Removed fake details)
+  const rating = 0;
+  const reviewCount = 0;
+  const recentSales7Days = 0;
 
   // SKU derivation
   const skuPrefix = {
@@ -148,143 +148,37 @@ export function getProductPalmonasSettings(product: Product): ProductPalmonasSet
     general_jewelry: "RB",
   }[categoryType];
   const skuSuffix = (seed % 900 + 100).toString();
-  const sku = `RB-${skuPrefix}${skuSuffix}-G`;
+  const sku = product.variants?.[0]?.sku || `RB-${skuPrefix}${skuSuffix}-G`;
 
   // Stock
-  const stockCount = 8 + (seed % 45);
+  const stockCount = 0;
   const inStock = product.variants?.[0]?.stock !== 0;
 
   // Highlight Badges per Category
-  let highlightBadges: HighlightBadge[] = [];
-  switch (categoryType) {
-    case "watches":
-      highlightBadges = [
-        { id: "1", iconName: "quartz", label: "Japanese Quartz" },
-        { id: "2", iconName: "water-resistant", label: "Water Resistant 3ATM" },
-        { id: "3", iconName: "anti-tarnish", label: "Stainless Steel Back" },
-      ];
-      break;
-    case "fabric_ethnic":
-      highlightBadges = [
-        { id: "1", iconName: "handcrafted", label: "100% Handcrafted" },
-        { id: "2", iconName: "mirror-work", label: "Authentic Mirror Work" },
-        { id: "3", iconName: "skin-safe", label: "Skin Safe Fabric" },
-      ];
-      break;
-    case "earrings":
-      highlightBadges = [
-        { id: "1", iconName: "feather-light", label: "Feather-Light (12g)" },
-        { id: "2", iconName: "skin-safe", label: "Hypoallergenic Posts" },
-        { id: "3", iconName: "anti-tarnish", label: "Anti-Tarnish Finish" },
-      ];
-      break;
-    case "necklaces":
-      highlightBadges = [
-        { id: "1", iconName: "anti-tarnish", label: "Anti-Tarnish" },
-        { id: "2", iconName: "skin-safe", label: "Skin Safe Jewellery" },
-        { id: "3", iconName: "gold-plated", label: "18K Gold Tone Plated" },
-      ];
-      break;
-    case "rings":
-      highlightBadges = [
-        { id: "1", iconName: "adjustable", label: "Adjustable Free Size" },
-        { id: "2", iconName: "anti-tarnish", label: "Anti-Tarnish" },
-        { id: "3", iconName: "skin-safe", label: "Skin Safe Jewellery" },
-      ];
-      break;
-    case "bangles_kadas":
-      highlightBadges = [
-        { id: "1", iconName: "anti-tarnish", label: "Anti-Tarnish" },
-        { id: "2", iconName: "skin-safe", label: "Skin Safe Jewellery" },
-        { id: "3", iconName: "gold-plated", label: "18K Gold Tone Plated" },
-      ];
-      break;
-    default:
-      highlightBadges = [
-        { id: "1", iconName: "anti-tarnish", label: "Anti-Tarnish" },
-        { id: "2", iconName: "skin-safe", label: "Skin Safe Jewellery" },
-        { id: "3", iconName: "gold-plated", label: "18K Gold Tone Plated" },
-      ];
-  }
+  const highlightBadges: HighlightBadge[] = [];
 
   // Deals configuration
   const discountedPrice = Math.max(199, Math.round(price * 0.75));
   const deal: ProductDeal = {
-    tag: "OFFER ENDING SOON",
-    discountedPrice,
-    couponCode: "STACK4",
-    conditionText: "Buy 4 for ₹2999",
-    subNote: "Note: You need to add minimum 4 products.",
-    allDeals: [
-      {
-        code: "STACK4",
-        title: "Stack Up Fest",
-        description: "Buy any 4 jewellery pieces for ₹2,999. Mix and match freely across the store!",
-      },
-      {
-        code: "RANG10",
-        title: "Welcome Offer",
-        description: "Get an extra 10% instant discount on all prepaid orders (UPI / Cards).",
-      },
-      {
-        code: "FESTIVE200",
-        title: "Festive Glam Offer",
-        description: "Flat ₹200 OFF on orders above ₹1,499. Applied at checkout automatically.",
-        minSpend: 1499,
-      },
-      {
-        code: "FREESHIP",
-        title: "Free Express Shipping",
-        description: "Zero delivery charges on all orders with insured courier dispatch across India.",
-      },
-    ],
+    tag: "",
+    discountedPrice: 0,
+    couponCode: "",
+    conditionText: "",
+    subNote: "",
+    allDeals: [],
   };
 
   // Gift sleeve option
-  let giftSleeve: GiftSleeveOption;
-  if (categoryType === "watches") {
-    giftSleeve = {
-      title: "Add a gift sleeve",
-      label: "Add Watch Hardcase & Birthday Sleeve — ₹ 80.00",
-      price: 80,
-      imageUrl: "/images/gift-sleeve.jpg",
-    };
-  } else if (categoryType === "fabric_ethnic" || categoryType === "bangles_kadas") {
-    giftSleeve = {
-      title: "Add a gift sleeve",
-      label: "Add Birthday sleeve — ₹ 50.00",
-      price: 50,
-      imageUrl: "/images/gift-sleeve.jpg",
-    };
-  } else {
-    giftSleeve = {
-      title: "Add a gift sleeve",
-      label: "Add Birthday sleeve — ₹ 50.00",
-      price: 50,
-      imageUrl: "/images/gift-sleeve.jpg",
-    };
-  }
+  const giftSleeve: GiftSleeveOption = {
+    title: "",
+    label: "",
+    price: 0,
+    imageUrl: "",
+  };
 
   // Variant finishes & sizes
-  let availableFinishes: string[] = ["GOLD", "SILVER", "ROSE GOLD"];
-  if (categoryType === "fabric_ethnic") {
-    availableFinishes = ["MULTI COLOR", "ROYAL RED", "FESTIVE GOLD"];
-  } else if (categoryType === "watches") {
-    availableFinishes = ["GOLD MESH", "SILVER STEEL", "ROSE GOLD"];
-  } else if (product.title.toLowerCase().includes("silver") || product.title.toLowerCase().includes("oxidised")) {
-    availableFinishes = ["OXIDISED SILVER", "18K GOLD", "DUAL TONE"];
-  }
-
-  let availableSizes: string[] = [];
-  if (categoryType === "bangles_kadas") {
-    availableSizes = ["2.4", "2.6", "2.8", "Adjustable"];
-  } else if (categoryType === "rings") {
-    availableSizes = ["Free Size (Adjustable)"];
-  } else if (categoryType === "necklaces") {
-    availableSizes = ["Standard (40cm + 5cm Extender)"];
-  } else if (categoryType === "watches") {
-    availableSizes = ["Standard Fit (Adjustable)"];
-  }
+  const availableFinishes: string[] = [];
+  const availableSizes: string[] = [];
 
   // Specifications
   const specs: SpecItem[] = [];

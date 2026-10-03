@@ -83,7 +83,7 @@ export function ProductGallery({
             fill
             priority
             sizes="(max-width: 768px) 100vw, 50vw"
-            className={`object-contain transition-transform duration-200 ${
+            className={`object-cover transition-transform duration-200 ${
               isZoomed ? "scale-130" : "scale-100"
             }`}
             style={
@@ -159,7 +159,7 @@ export function ProductGallery({
                 src={img.url}
                 alt={img.alt}
                 fill
-                className="object-contain"
+                className="object-cover"
               />
             </button>
           ))}

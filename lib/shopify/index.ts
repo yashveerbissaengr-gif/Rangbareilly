@@ -2,16 +2,7 @@ import { Product, ProductVariant, ProductImage } from '@/types';
 import { shopifyFetch } from './client';
 import { getProductsQuery, getProductQuery } from './queries';
 
-const defaultProps = {
-  description: "Experience the perfect blend of elegance and style with this beautiful piece from our collection. Crafted with precision to complement your everyday look and special occasions.",
-  material: "Premium Quality Alloy",
-  care: "Keep away from moisture and perfumes. Store in a dry place.",
-  shipping: "Ships in 2-3 business days.",
-  returns: "7-day return policy available.",
-  rating: 5,
-  reviewCount: 42,
-  tags: ["core"],
-};
+
 
 function mapShopifyProductToFrontend(shopifyProduct: any): Product {
   const images: ProductImage[] = shopifyProduct.images?.edges?.map((edge: any, index: number) => ({
@@ -45,17 +36,16 @@ function mapShopifyProductToFrontend(shopifyProduct: any): Product {
   });
 
   return {
-    ...defaultProps,
     id: shopifyProduct.id,
     slug: shopifyProduct.handle,
     title: shopifyProduct.title,
-    description: shopifyProduct.description || defaultProps.description,
+    description: shopifyProduct.description || "",
     descriptionHtml: shopifyProduct.descriptionHtml,
     price: basePrice,
     compareAtPrice: compareAtPrice,
     collection: "All",
     productType: shopifyProduct.productType || "",
-    images: images.length > 0 ? images : [{ url: "/dummy-products/ring-1.jpg", alt: "Placeholder", isPrimary: true }],
+    images: images,
     variants: variants,
     tags: shopifyProduct.tags || [],
     isBestSeller: shopifyProduct.tags?.includes('best-seller') || false,
@@ -142,6 +132,7 @@ export async function getCollection(handle: string): Promise<Product[]> {
     const { body } = await shopifyFetch<any>({
       query,
       variables: { handle },
+      revalidate: 60,
     });
     
     if (!body.data?.collection?.products?.edges) return [];

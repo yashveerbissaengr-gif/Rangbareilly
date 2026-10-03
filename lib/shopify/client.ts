@@ -1,7 +1,7 @@
-const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
-const publicToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY;
+const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || 'rangbareilly.myshopify.com';
+const publicToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY || 'cc1146ec02462ffb8b8fdd46f0fd1ed6';
 const privateToken = process.env.SHOPIFY_PRIVATE_STOREFRONT_TOKEN;
-const version = process.env.SHOPIFY_STOREFRONT_API_VERSION || '2026-07';
+const version = process.env.SHOPIFY_STOREFRONT_API_VERSION || '2024-01';
 
 type ShopifyFetchParams = {
   query: string;
