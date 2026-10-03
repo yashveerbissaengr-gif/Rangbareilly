@@ -34,6 +34,6 @@
     "react-doctor": "^0.7.6",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "wrangler": "^4.107.0"
+    "wrangler": "^4.147.0"
   }
 }
