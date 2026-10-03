@@ -4,7 +4,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 
 export const metadata = {
   title: "All Products - Rangbareilly",
-  description: "Browse all our beautiful jewelry pieces, necklace, earrings, rings, and more.",
+  description: "Browse all our beautiful products and latest collections.",
 };
 
 export default async function ProductsPage() {

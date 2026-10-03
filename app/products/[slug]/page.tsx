@@ -32,11 +32,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${product.title} - Anti-Tarnish Jewellery | Rangbareilly`,
-    description: `Shop ${product.title} at Rangbareilly. Premium anti-tarnish, skin-safe handcrafted jewellery with free shipping & COD pan-India.`,
+    title: `${product.title} | Rangbareilly`,
+    description: `Shop ${product.title} at Rangbareilly. Premium quality products with free shipping & COD pan-India.`,
     openGraph: {
       title: `${product.title} | Rangbareilly`,
-      description: `Buy ${product.title} online. Anti-tarnish, hypoallergenic finish with 10-day exchange.`,
+      description: `Buy ${product.title} online. Premium quality with 10-day exchange.`,
       images: product.images[0]?.url ? [{ url: product.images[0].url }] : [],
     },
   };
