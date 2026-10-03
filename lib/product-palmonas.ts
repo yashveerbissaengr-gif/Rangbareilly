@@ -206,7 +206,7 @@ export function getProductPalmonasSettings(product: Product): ProductPalmonasSet
 
   // Supplier Information
   const supplierInfo: SpecItem[] = [
-    { label: "Marketed By", value: "Rangbareilly Lifestyle & Retail Pvt. Ltd." },
+    { label: "Marketed By", value: "Rangbareilly" },
     { label: "Country of Origin", value: "India 🇮🇳" },
   ];
 
