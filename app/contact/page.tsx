@@ -72,6 +72,42 @@ export default function ContactPage() {
                 All RANGBAREILLY pieces come with a 1-year warranty covering manufacturing defects. We also offer lifetime complimentary cleaning at our flagship locations.
               </Text>
             </AccordionItem>
+
+            <AccordionItem title="How long does shipping take?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                Standard shipping within India takes 3-5 business days. International shipping typically takes 7-14 business days depending on the destination.
+              </Text>
+            </AccordionItem>
+
+            <AccordionItem title="Is Cash on Delivery (COD) available?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                Yes, we offer Cash on Delivery across most pin codes in India. A nominal convenience fee may apply for COD orders.
+              </Text>
+            </AccordionItem>
+
+            <AccordionItem title="How can I track my order?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                Once your order is shipped, you will receive an email and SMS with the tracking link. You can also track it directly from the 'Track Order' section in the menu.
+              </Text>
+            </AccordionItem>
+
+            <AccordionItem title="How do I care for my jewelry?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                To maintain the shine, keep your jewelry away from water, perfumes, and harsh chemicals. Store it in the provided pouch or a dry, airtight box when not in use.
+              </Text>
+            </AccordionItem>
+
+            <AccordionItem title="Can I modify or cancel my order?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                Orders can be modified or cancelled within 2 hours of placement. Please contact our customer care team immediately with your order number.
+              </Text>
+            </AccordionItem>
+
+            <AccordionItem title="Are the products hypoallergenic?">
+              <Text className="pt-4 pb-2 text-rangbareilly-dark/80">
+                Most of our pieces are made with skin-friendly materials and are nickel-free and lead-free. However, if you have severe allergies, please check the specific product description or contact us.
+              </Text>
+            </AccordionItem>
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ export const getProductsQuery = `
           title
           description
           descriptionHtml
+          productType
           options {
             id
             name

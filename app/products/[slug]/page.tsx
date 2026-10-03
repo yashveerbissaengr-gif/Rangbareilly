@@ -1,84 +1,152 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { getProduct, getProducts } from '@/lib/shopify';
-import Image from 'next/image';
-import { AddToCartButton } from './AddToCartButton';
-import { ProductSection } from '@/components/home/ProductSection';
-import { Footer } from '@/components/layout/Footer';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { getProduct, getProducts } from "@/lib/shopify";
+import { getProductPalmonasSettings } from "@/lib/product-palmonas";
+import { ProductGallery } from "@/components/product/ProductGallery";
+import { ProductBuyBox } from "@/components/product/ProductBuyBox";
+import { ProductReviewsSection } from "@/components/product/ProductReviewsSection";
+import { ProductSection } from "@/components/home/ProductSection";
+import { Footer } from "@/components/layout/Footer";
+import { ChevronRight } from "lucide-react";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const resolvedParams = await params;
-  const product = await getProduct(resolvedParams.slug);
+  let product = await getProduct(resolvedParams.slug);
 
   if (!product) {
-    return { title: 'Product Not Found | Rangbareilly' };
+    const all = await getProducts();
+    product = all.find(
+      (p) =>
+        p.slug === resolvedParams.slug ||
+        p.slug.toLowerCase() === resolvedParams.slug.toLowerCase()
+    );
+  }
+
+  if (!product) {
+    return { title: "Product Not Found | Rangbareilly" };
   }
 
   return {
-    title: `${product.title} | Rangbareilly`,
-    description: `Buy ${product.title} at Rangbareilly.`,
+    title: `${product.title} - Anti-Tarnish Jewellery | Rangbareilly`,
+    description: `Shop ${product.title} at Rangbareilly. Premium anti-tarnish, skin-safe handcrafted jewellery with free shipping & COD pan-India.`,
+    openGraph: {
+      title: `${product.title} | Rangbareilly`,
+      description: `Buy ${product.title} online. Anti-tarnish, hypoallergenic finish with 10-day exchange.`,
+      images: product.images[0]?.url ? [{ url: product.images[0].url }] : [],
+    },
   };
 }
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const resolvedParams = await params;
-  const product = await getProduct(resolvedParams.slug);
+  const slug = resolvedParams.slug;
+  let product = await getProduct(slug);
+
+  if (!product) {
+    const all = await getProducts();
+    product = all.find(
+      (p) =>
+        p.slug === slug ||
+        p.slug.toLowerCase() === slug.toLowerCase() ||
+        p.id === slug
+    );
+  }
 
   if (!product) {
     return notFound();
   }
 
+  // Generate specialized settings tailored to this specific product type
+  const settings = getProductPalmonasSettings(product);
+
+  // Fetch related products
   const allProducts = await getProducts();
-  const relatedProducts = allProducts.filter(p => p.id !== product.id).slice(0, 4);
+  const relatedProducts = allProducts
+    .filter((p) => p.id !== product!.id)
+    .slice(0, 4);
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-gray-50">
-      
-      <div className="container mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl shadow-sm p-6 md:p-12 flex flex-col md:flex-row gap-12">
-          {/* Image */}
-          <div className="w-full md:w-1/2 relative aspect-square rounded-xl overflow-hidden bg-gray-100">
-            <Image
-              src={product.images[0]?.url || "/placeholder.svg"}
-              alt={product.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+    <div className="flex flex-col w-full min-h-screen bg-white">
+      {/* Breadcrumb Navigation */}
+      <nav aria-label="Breadcrumb" className="border-b border-gray-100 bg-[#FCFBF9]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+          <ol className="flex items-center gap-1.5 text-xs text-gray-500 overflow-x-auto whitespace-nowrap">
+            <li>
+              <Link href="/" className="hover:text-gray-900 transition-colors">
+                Home
+              </Link>
+            </li>
+            <ChevronRight className="w-3 h-3 text-gray-400 shrink-0" />
+            <li>
+              <Link href="/products" className="hover:text-gray-900 transition-colors">
+                All Products
+              </Link>
+            </li>
+            <ChevronRight className="w-3 h-3 text-gray-400 shrink-0" />
+            <li>
+              <span className="text-gray-600 font-medium">
+                {settings.categoryLabel}
+              </span>
+            </li>
+            <ChevronRight className="w-3 h-3 text-gray-400 shrink-0" />
+            <li aria-current="page">
+              <span className="text-gray-900 font-bold truncate max-w-[200px] sm:max-w-xs block">
+                {product.title}
+              </span>
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      {/* Main Product Section: Palmonas 2-Column Split */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 flex-grow w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          {/* Left Column: Image Gallery (5 cols on large screens) */}
+          <div className="lg:col-span-6 w-full">
+            <ProductGallery
+              images={product.images}
+              title={product.title}
+              badgeLabel={
+                settings.discountPercent > 0
+                  ? `Flat ₹${product.price.toLocaleString()}`
+                  : "Bestseller"
+              }
             />
           </div>
 
-          {/* Info */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center">
-            <span className="text-sm text-[#FF6B6C] font-semibold tracking-wider uppercase mb-2">
-              {product.collection}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-accent font-medium text-gray-900 mb-4">
-              {product.title}
-            </h1>
-            
-            <div className="flex items-end gap-3 mb-8">
-              <span className="text-2xl font-bold text-gray-900">
-                ₹{product.price.toLocaleString()}
-              </span>
-              {product.compareAtPrice && (
-                <span className="text-gray-400 line-through text-lg mb-0.5">
-                  ₹{product.compareAtPrice.toLocaleString()}
-                </span>
-              )}
-            </div>
-
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              Experience the perfect blend of elegance and style with this beautiful piece from our collection. Crafted with precision to complement your everyday look and special occasions.
-            </p>
-
-            <AddToCartButton product={product} />
+          {/* Right Column: Buy Box, Urgency, Deals, Accordions, Trust (6 cols) */}
+          <div className="lg:col-span-6 w-full">
+            <ProductBuyBox product={product} settings={settings} />
           </div>
         </div>
-      </div>
 
-      {/* Related Products Section */}
-      <ProductSection title="You May Also Like" products={relatedProducts} />
-      
+        {/* Customer Reviews Section */}
+        <ProductReviewsSection
+          productTitle={product.title}
+          rating={settings.rating}
+          reviewCount={settings.reviewCount}
+        />
+
+        {/* You May Also Like Section */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-12 pt-8 border-t border-gray-100">
+            <ProductSection
+              title="You May Also Like"
+              products={relatedProducts}
+            />
+          </div>
+        )}
+      </main>
+
       <Footer />
     </div>
   );

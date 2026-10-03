@@ -1,31 +1,29 @@
 import { getProducts } from "@/lib/shopify/index";
-import { GenZPromoBanner } from "@/components/ui/GenZPromoBanner";
 import { ProductGrid } from "@/components/product/ProductGrid";
 import { Footer } from "@/components/layout/Footer";
 import { filterByPrice } from "@/lib/product-filters";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Under 299 | Rangbareilly",
-  description: "Shop beautiful artificial jewelry under ₹299.",
+  title: "Under 199 | Rangbareilly",
+  description: "Shop beautiful artificial jewelry under ₹199.",
 };
 
-export default async function Under299Page() {
+export default async function Under199Page() {
   const allProducts = await getProducts();
-  const matched = filterByPrice(allProducts, 299);
+  const matched = filterByPrice(allProducts, 199);
   const products = matched.length > 0 ? matched : allProducts.slice(0, 8);
 
   return (
     <>
       <div className="container mx-auto px-4 py-16 min-h-screen">
-        <h1 className="text-4xl font-accent text-center text-gray-800 mb-3">Under 299</h1>
+        <h1 className="text-4xl font-accent text-center text-gray-800 mb-3">Under 199</h1>
         <p className="text-center text-xs font-bold uppercase tracking-widest text-[#E63956] mb-10">
           {products.length} product{products.length === 1 ? "" : "s"}
         </p>
-        <GenZPromoBanner />
-        <ProductGrid 
-          products={products} 
-          emptyMessage="No products found under ₹299." 
+        <ProductGrid
+          products={products}
+          emptyMessage="No products found under ₹199."
         />
       </div>
       <Footer />

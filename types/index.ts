@@ -17,6 +17,7 @@ export interface Product {
   slug: string;
   title: string;
   description: string;
+  descriptionHtml?: string;
   material: string;
   care: string;
   shipping: string;
@@ -29,6 +30,7 @@ export interface Product {
   rating: number;
   reviewCount: number;
   tags: string[];
+  productType?: string;
   isNewArrival?: boolean;
   isBestSeller?: boolean;
 }

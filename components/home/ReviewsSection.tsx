@@ -14,7 +14,12 @@ const faqs = [
   { question: "How can I track my order?", answer: "Once your order is shipped, you will receive an email with the tracking link. You can also track it from the 'Track Order' section in the menu." },
   { question: "Do you offer refunds or exchanges?", answer: "Yes, we offer a 7-day return and exchange policy for unworn items in their original packaging." },
   { question: "Is COD (Cash on Delivery) available?", answer: "Yes, we offer Cash on Delivery across most pin codes in India." },
-  { question: "How long does shipping take?", answer: "Standard shipping usually takes 7-10 business days." }
+  { question: "How long does shipping take?", answer: "Standard shipping usually takes 7-10 business days." },
+  { question: "Do you ship internationally?", answer: "Yes, we offer complimentary express shipping worldwide. Duties and taxes are calculated at checkout." },
+  { question: "How do I care for my jewelry?", answer: "To maintain the shine, keep your jewelry away from water, perfumes, and harsh chemicals. Store it in a dry, airtight box." },
+  { question: "Are the products hypoallergenic?", answer: "Most of our pieces are made with skin-friendly materials and are nickel-free and lead-free." },
+  { question: "Can I modify or cancel my order?", answer: "Orders can be modified or cancelled within 2 hours of placement. Please contact our customer care team immediately." },
+  { question: "Do you offer a warranty?", answer: "All RANGBAREILLY pieces come with a 1-year warranty covering manufacturing defects." }
 ];
 
 export const ReviewsSection = () => {
