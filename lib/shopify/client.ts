@@ -1,12 +1,13 @@
 const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
 const publicToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_PUBLISHABLE_KEY;
 const privateToken = process.env.SHOPIFY_PRIVATE_STOREFRONT_TOKEN;
-const version = process.env.SHOPIFY_STOREFRONT_API_VERSION || '2024-01';
+const version = process.env.SHOPIFY_STOREFRONT_API_VERSION || '2026-07';
 
 type ShopifyFetchParams = {
   query: string;
   variables?: Record<string, any>;
   cache?: RequestCache;
+  revalidate?: number;
   tags?: string[];
   isPrivate?: boolean;
 };
@@ -15,6 +16,7 @@ export async function shopifyFetch<T>({
   query,
   variables,
   cache = 'force-cache',
+  revalidate,
   tags,
   isPrivate = false,
 }: ShopifyFetchParams): Promise<{ status: number; body: T } | never> {
@@ -45,7 +47,12 @@ export async function shopifyFetch<T>({
         ...(variables && { variables }),
       }),
       cache,
-      ...(tags && { next: { tags } }),
+      ...((tags || revalidate !== undefined) && {
+        next: {
+          ...(revalidate !== undefined && { revalidate }),
+          ...(tags && { tags }),
+        },
+      }),
     });
 
     if (!result.ok) {

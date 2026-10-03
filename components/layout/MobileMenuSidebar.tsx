@@ -36,13 +36,13 @@ const priceLinks = [
 ];
 
 const categoryLinks = [
-  { href: "/category/rings", label: "Rings" },
-  { href: "/category/earrings", label: "Earrings" },
-  { href: "/category/bracelets", label: "Bracelets" },
-  { href: "/category/necklace", label: "Necklace" },
-  { href: "/category/bag-charms", label: "Bag Charms" },
-  { href: "/category/stainless-steel", label: "Stainless Steel" },
-  { href: "/category/arm-cuffs", label: "Arm Cuffs" },
+  { href: "/collections/rings", label: "Rings" },
+  { href: "/collections/earrings", label: "Earrings" },
+  { href: "/collections/bracelets", label: "Bracelets" },
+  { href: "/collections/necklace", label: "Necklace" },
+  { href: "/collections/bag-charms", label: "Bag Charms" },
+  { href: "/collections/stainless-steel", label: "Stainless Steel" },
+  { href: "/collections/arm-cuffs", label: "Arm Cuffs" },
 ];
 
 const infoLinks = [

@@ -1,17 +1,18 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useCart } from "@/lib/context/CartContext";
+import { useWishlist } from "@/lib/context/WishlistContext";
 import { Product } from "@/types";
 import { Heart } from "lucide-react";
 
-import Link from "next/link";
-
 export const ProductCard = ({ product }: { product: Product }) => {
   const { addToCart } = useCart();
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const { wishlist, toggleWishlist } = useWishlist();
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
 
   // Calculate discount
   const discount = product.compareAtPrice 
@@ -40,7 +41,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           onClick={(e) => { 
             e.preventDefault(); 
             e.stopPropagation();
-            setIsWishlisted(!isWishlisted); 
+            toggleWishlist(product);
           }}
           aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center border border-gray-100 shadow-sm hover:scale-110 transition-transform cursor-pointer"
@@ -50,7 +51,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           />
         </button>
 
-        <Link href={productUrl} className="block w-full h-full">
+        <Link href={productUrl} aria-label={`View ${product.title}`} className="block w-full h-full absolute inset-0">
           <Image
             src={product.images[0]?.url || "/placeholder.svg"}
             alt={product.title}
@@ -63,11 +64,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
       <div className="pt-3 flex flex-col flex-grow justify-between">
         <div>
-          <Link href={productUrl} className="block">
-            <h3 className="font-bold text-sm text-[#1F1215] line-clamp-1 hover:text-[#E63956] transition-colors">
+          <h3 className="font-bold text-sm text-[#1F1215] line-clamp-1">
+            <Link href={productUrl} className="hover:text-[#E63956] transition-colors block">
               {product.title}
-            </h3>
-          </Link>
+            </Link>
+          </h3>
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             <span className="text-sm font-extrabold text-[#1F1215]">
               ₹{product.price.toLocaleString()}

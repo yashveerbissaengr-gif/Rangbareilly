@@ -63,11 +63,12 @@ function mapShopifyProductToFrontend(shopifyProduct: any): Product {
   };
 }
 
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts(searchQuery?: string): Promise<Product[]> {
   try {
     const { body } = await shopifyFetch<any>({
       query: getProductsQuery,
-      variables: { first: 50 },
+      variables: { first: 50, query: searchQuery?.trim() || undefined },
+      revalidate: 60,
     });
     
     if (!body.data?.products?.edges) return [];
@@ -84,6 +85,7 @@ export async function getProduct(slug: string): Promise<Product | undefined> {
     const { body } = await shopifyFetch<any>({
       query: getProductQuery,
       variables: { handle: slug },
+      revalidate: 60,
     });
     
     if (!body.data?.product) return undefined;

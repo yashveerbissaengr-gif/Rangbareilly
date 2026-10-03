@@ -6,13 +6,13 @@ import Image from "next/image";
 import { m as motion } from "framer-motion";
 
 const categories = [
-  { name: "Earrings",       href: "/category/earrings",        image: "/category/earrings.png" },
-  { name: "Rings",          href: "/category/rings",           image: "/category/rings.jpg" },
-  { name: "Necklace",       href: "/category/necklace",        image: "/category/necklace.jpg" },
-  { name: "Bracelets",      href: "/category/bracelets",       image: "/category/bracelets.jpg" },
-  { name: "Bag Charms",     href: "/category/bag-charms",      image: "/category/bag-charms1.png" },
-  { name: "Stainless Steel",href: "/category/stainless-steel", image: "/category/stainless-steel.jpg" },
-  { name: "Arm Cuffs",      href: "/category/arm-cuffs",       image: "/category/arm-cuffs.png" },
+  { name: "Earrings",       href: "/collections/earrings",        image: "/category/earrings.png" },
+  { name: "Rings",          href: "/collections/rings",           image: "/category/rings.jpg" },
+  { name: "Necklace",       href: "/collections/necklace",        image: "/category/necklace.jpg" },
+  { name: "Bracelets",      href: "/collections/bracelets",       image: "/category/bracelets.jpg" },
+  { name: "Bag Charms",     href: "/collections/bag-charms",      image: "/category/bag-charms1.png" },
+  { name: "Stainless Steel",href: "/collections/stainless-steel", image: "/category/stainless-steel.jpg" },
+  { name: "Arm Cuffs",      href: "/collections/arm-cuffs",       image: "/category/arm-cuffs.png" },
 ];
 
 export const CategoryBubbles = () => {

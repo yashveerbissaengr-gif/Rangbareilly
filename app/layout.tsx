@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Caveat } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/lib/context/CartContext";
+import { WishlistProvider } from "@/lib/context/WishlistContext";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { LazyMotion, domAnimation } from "framer-motion";
 
@@ -33,10 +34,12 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${outfit.variable} ${caveat.variable} antialiased min-h-screen flex flex-col bg-rangbareilly-background`}>
         <LazyMotion features={domAnimation}>
-          <CartProvider>
-            <SiteShell />
-            <main className="flex-grow">{children}</main>
-          </CartProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <SiteShell />
+              <main className="flex-grow">{children}</main>
+            </CartProvider>
+          </WishlistProvider>
         </LazyMotion>
       </body>
     </html>

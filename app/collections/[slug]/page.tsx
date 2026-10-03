@@ -6,9 +6,11 @@ import { filterByCategory, normalizeCategorySlug } from "@/lib/product-filters";
 export default async function CollectionPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
-  let products = await getCollection(slug);
-
-  if (slug === "hot-selling") {
+  let products = slug === "all"
+    ? await getProducts()
+    : await getCollection(slug);
+  
+  if (slug === 'hot-selling') {
     const all = await getProducts();
     products = all.filter((p) => p.isBestSeller);
   } else if (slug === "new") {
