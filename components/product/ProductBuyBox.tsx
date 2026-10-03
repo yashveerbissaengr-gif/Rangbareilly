@@ -42,7 +42,7 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
   const [shareFeedback, setShareFeedback] = useState(false);
 
   // Price calculations based on selected variant
-  const basePrice = selectedVariant?.price || (product.price > 0 ? product.price : 499);
+  const basePrice = (product.price > 0 ? product.price : 499) + (selectedVariant?.priceDelta || 0);
   const sleeveExtra = hasGiftSleeve ? settings.giftSleeve?.price || 0 : 0;
   const activePrice = basePrice + sleeveExtra;
   const totalItemPrice = activePrice * quantity;
@@ -56,7 +56,6 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
         name: "Default",
         sku: settings.sku,
         priceDelta: 0,
-        price: activePrice,
         stock: 100,
       };
 
