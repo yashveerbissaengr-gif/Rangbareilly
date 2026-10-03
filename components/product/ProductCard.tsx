@@ -57,7 +57,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             alt={product.title}
             fill
             sizes="(max-width: 768px) 100vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-contain transition-transform duration-500 group-hover:scale-105"
           />
         </Link>
       </div>

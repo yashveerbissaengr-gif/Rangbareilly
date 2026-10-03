@@ -109,6 +109,7 @@ export async function getCollection(handle: string): Promise<Product[]> {
               availableForSale
               title
               description
+              descriptionHtml
               priceRange {
                 maxVariantPrice { amount currencyCode }
                 minVariantPrice { amount currencyCode }
