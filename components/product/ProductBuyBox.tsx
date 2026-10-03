@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Product, ProductVariant } from "@/types";
 import { ProductPalmonasSettings } from "@/lib/product-palmonas";
 import { useCart } from "@/lib/context/CartContext";
+import { useWishlist } from "@/lib/context/WishlistContext";
 import { ProductHighlightBadges } from "./ProductHighlightBadges";
 import { ProductDealsBox } from "./ProductDealsBox";
 import { ProductGiftSleeve } from "./ProductGiftSleeve";
@@ -29,6 +30,7 @@ interface ProductBuyBoxProps {
 
 export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
   const { addToCart, checkoutUrl } = useCart();
+  const { wishlist, toggleWishlist } = useWishlist();
 
   // Variant selection from real Shopify data
   const hasVariants = product.variants && product.variants.length > 1;
@@ -37,7 +39,7 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
 
   const [quantity, setQuantity] = useState(1);
   const [hasGiftSleeve, setHasGiftSleeve] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
   const [isAdding, setIsAdding] = useState(false);
   const [shareFeedback, setShareFeedback] = useState(false);
 
@@ -230,7 +232,7 @@ export function ProductBuyBox({ product, settings }: ProductBuyBoxProps) {
           {/* Wishlist Button */}
           <button
             type="button"
-            onClick={() => setIsWishlisted(!isWishlisted)}
+            onClick={() => toggleWishlist(product)}
             className="w-12 h-12 rounded-full border border-gray-200 hover:border-gray-300 bg-white flex items-center justify-center text-gray-600 transition-colors shrink-0 shadow-2xs hover:scale-105"
             aria-label="Add to wishlist"
           >

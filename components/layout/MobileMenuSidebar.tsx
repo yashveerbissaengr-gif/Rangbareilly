@@ -15,6 +15,8 @@ import {
   Truck,
   RefreshCw,
   ChevronRight,
+  Heart,
+  User,
 } from "lucide-react";
 import { useCart } from "@/lib/context/CartContext";
 
@@ -26,6 +28,8 @@ interface MobileMenuSidebarProps {
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/products", label: "All Products", icon: Gem },
+  { href: "/wishlist", label: "Wishlist", icon: Heart },
+  { href: "/account/login", label: "My Account", icon: User },
 ];
 
 const priceLinks = [
