@@ -47,6 +47,8 @@ export const Header = () => {
 
           {/* Desktop Navigation — fills center */}
           <nav className="hidden lg:flex items-center gap-1 text-[13px] font-bold text-[#1F1215] flex-1 justify-center">
+            <Link href="/products" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">ALL PRODUCTS</Link>
+            <div className="h-4 w-px bg-gray-200 mx-2" />
             <Link href="/under-499" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 499</Link>
             <Link href="/under-399" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 399</Link>
             <Link href="/under-299" className="px-4 py-2 rounded-full hover:bg-[#E63956]/10 hover:text-[#E63956] transition-colors">UNDER 299</Link>

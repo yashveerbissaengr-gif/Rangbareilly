@@ -15,13 +15,8 @@ export default async function Home() {
   const under399 = allProducts.filter(p => p.price > 299 && p.price <= 399).slice(0, 4);
   const under499 = allProducts.filter(p => p.price > 399 && p.price <= 499).slice(0, 4);
 
-  const topSelling = [
-    allProducts.find(p => p.title?.toLowerCase().includes("arm cuff") || p.tags?.includes("arm-cuffs")),
-    allProducts.find(p => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return p.title?.toLowerCase().includes("watch") || (p as any).productType?.toLowerCase() === "watch";
-    })
-  ].filter(Boolean); // removes undefined
+  // Dynamically show the latest products
+  const topSelling = allProducts.slice(0, 8);
 
   return (
     <>
